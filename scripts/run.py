@@ -39,13 +39,13 @@ def main() -> None:
 
     print("Summarizing with Gemini Flash…")
     papers = summarize_papers(papers, api_key, config["gemini_model"])
-    print(f"  → Done")
+    print("  → Done")
 
     print("Rendering HTML…")
     filename = generate_digest(papers, docs_dir, config["lookback_days"])
     update_index(docs_dir)
     print(f"  → docs/digests/{filename}")
-    print(f"  → docs/index.html updated")
+    print("  → docs/index.html updated")
 
 
 if __name__ == "__main__":

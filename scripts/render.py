@@ -1,6 +1,6 @@
 """Generate the HTML digest and update docs/index.html."""
 
-import json
+import html as _html
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -172,6 +172,9 @@ header h1 {
 .btn-arxiv:hover { background: #e2e8f0; color: #1e293b; }
 .btn-code  { background: #d1fae5; color: #065f46; }
 .btn-code:hover { background: #a7f3d0; }
+.btn-poc   { background: #fef3c7; color: #92400e; border: none; cursor: pointer; font-family: inherit; }
+.btn-poc:hover { background: #fde68a; }
+.btn-poc.copied { background: #d1fae5; color: #065f46; }
 
 /* ── Footer ── */
 footer {
@@ -243,8 +246,53 @@ def _page_shell(title: str, body: str) -> str:
 </head>
 <body>
 {body}
+<script>
+function copyPOC(btn) {{
+  navigator.clipboard.writeText(btn.dataset.prompt).then(function() {{
+    var orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(function() {{ btn.textContent = orig; btn.classList.remove('copied'); }}, 1800);
+  }});
+}}
+</script>
 </body>
 </html>"""
+
+
+def _build_poc_prompt(paper: dict) -> str:
+    s = paper.get("summary", {})
+    authors = ", ".join(paper["authors"][:3])
+    if len(paper["authors"]) > 3:
+        authors += " et al."
+    repo_line = (
+        f"Repo:   {paper['code_url']}"
+        if paper.get("code_url")
+        else "Repo:   not available"
+    )
+    return f"""You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   {paper["title"]}
+Authors: {authors}
+ArXiv:   {paper["url"]}
+{repo_line}
+
+## What to build
+Problem:  {s.get("problem", "See abstract.")}
+Approach: {s.get("approach", "See abstract.")}
+Target:   {s.get("result", "See abstract.")}
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+{paper["abstract"]}"""
 
 
 def _card_html(paper: dict) -> str:
@@ -253,9 +301,13 @@ def _card_html(paper: dict) -> str:
     card_class = "card has-code" if has_code else "card"
 
     # Badges
-    code_badge = '<span class="badge badge-code">&#x2713; Code</span>' if has_code else ""
+    code_badge = (
+        '<span class="badge badge-code">&#x2713; Code</span>' if has_code else ""
+    )
     primary_cat = paper["categories"][0] if paper["categories"] else ""
-    cat_badge = f'<span class="badge badge-cat">{primary_cat}</span>' if primary_cat else ""
+    cat_badge = (
+        f'<span class="badge badge-cat">{primary_cat}</span>' if primary_cat else ""
+    )
     badges = f'<div class="card-top">{code_badge}{cat_badge}</div>'
 
     # Authors line
@@ -266,10 +318,14 @@ def _card_html(paper: dict) -> str:
     meta = f"{author_str} &nbsp;·&nbsp; {paper['published']}"
 
     # Links
-    arxiv_link = f'<a class="btn btn-arxiv" href="{paper["url"]}" target="_blank">ArXiv ↗</a>'
+    arxiv_link = (
+        f'<a class="btn btn-arxiv" href="{paper["url"]}" target="_blank">ArXiv ↗</a>'
+    )
     code_link = ""
     if has_code and paper.get("code_url"):
         code_link = f'<a class="btn btn-code" href="{paper["code_url"]}" target="_blank">Code ↗</a>'
+    poc_prompt = _html.escape(_build_poc_prompt(paper), quote=True)
+    poc_btn = f'<button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="{poc_prompt}">🤖 POC</button>'
 
     # Summary sections — fall back gracefully if empty
     def row(label_class: str, label: str, text: str) -> str:
@@ -281,9 +337,9 @@ def _card_html(paper: dict) -> str:
         )
 
     sections = (
-        row("lbl-problem",   "Problem",   s.get("problem", ""))
-        + row("lbl-approach",  "Approach",  s.get("approach", ""))
-        + row("lbl-result",    "Result",    s.get("result", ""))
+        row("lbl-problem", "Problem", s.get("problem", ""))
+        + row("lbl-approach", "Approach", s.get("approach", ""))
+        + row("lbl-result", "Result", s.get("result", ""))
         + row("lbl-relevance", "Why it matters", s.get("relevance", ""))
     )
 
@@ -292,11 +348,11 @@ def _card_html(paper: dict) -> str:
 
     return f"""<div class="{card_class}">
   {badges}
-  <h2 class="card-title"><a href="{paper['url']}" target="_blank">{paper['title']}</a></h2>
+  <h2 class="card-title"><a href="{paper["url"]}" target="_blank">{paper["title"]}</a></h2>
   <p class="card-meta">{meta}</p>
   {one_liner_html}
   <div class="sections">{sections}</div>
-  <div class="card-links">{arxiv_link}{code_link}</div>
+  <div class="card-links">{arxiv_link}{code_link}{poc_btn}</div>
 </div>"""
 
 
@@ -338,7 +394,7 @@ def generate_digest(papers: list[dict], docs_dir: Path, lookback_days: int) -> s
   </div>
 </main>"""
 
-    footer = f"""<footer>
+    footer = """<footer>
   <div class="container">
     <a href="../index.html">&#8592; All digests</a>
     <span>Curated from ArXiv &amp; Papers With Code &nbsp;·&nbsp; Summarized with Gemini Flash</span>
@@ -357,14 +413,15 @@ def _read_digest_meta(path: Path) -> dict | None:
     try:
         text = path.read_text(encoding="utf-8")
         import re
+
         title_m = re.search(r"<title>Weekly Papers · (.+?)</title>", text)
         papers_m = re.search(r"<span class=\"stat\">(\d+) papers</span>", text)
-        code_m   = re.search(r"<span class=\"stat\">(\d+) with code</span>", text)
+        code_m = re.search(r"<span class=\"stat\">(\d+) with code</span>", text)
         return {
             "filename": path.name,
             "date_range": title_m.group(1) if title_m else path.stem,
             "n_papers": int(papers_m.group(1)) if papers_m else "?",
-            "n_code":   int(code_m.group(1))   if code_m   else "?",
+            "n_code": int(code_m.group(1)) if code_m else "?",
         }
     except Exception:
         return None
@@ -382,10 +439,10 @@ def update_index(docs_dir: Path) -> None:
             continue
         entries_html += f"""<div class="digest-entry">
   <div class="digest-info">
-    <span class="digest-week">{meta['date_range']}</span>
-    <span class="digest-meta">{meta['n_papers']} papers &nbsp;·&nbsp; {meta['n_code']} with code</span>
+    <span class="digest-week">{meta["date_range"]}</span>
+    <span class="digest-meta">{meta["n_papers"]} papers &nbsp;·&nbsp; {meta["n_code"]} with code</span>
   </div>
-  <a class="btn-view" href="digests/{meta['filename']}">View digest &rarr;</a>
+  <a class="btn-view" href="digests/{meta["filename"]}">View digest &rarr;</a>
 </div>
 """
 
@@ -412,5 +469,7 @@ def update_index(docs_dir: Path) -> None:
   </div>
 </footer>"""
 
-    html = _page_shell("Weekly Papers · VLA & Robot Learning", f"{header}\n{main}\n{footer}")
+    html = _page_shell(
+        "Weekly Papers · VLA & Robot Learning", f"{header}\n{main}\n{footer}"
+    )
     (docs_dir / "index.html").write_text(html, encoding="utf-8")

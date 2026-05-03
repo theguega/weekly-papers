@@ -13,7 +13,7 @@ Every Monday at 07:00 UTC a GitHub Action fetches the latest papers, scores them
 ```bash
 git add .
 git commit -m "init"
-git remote add origin https://github.com/YOUR_USERNAME/weekly-papers.git
+git remote add origin https://github.com/theguega/weekly-papers.git
 git push -u origin main
 ```
 
@@ -29,7 +29,7 @@ In your repo: **Settings → Secrets and variables → Actions → New repositor
 
 **Settings → Pages → Source: Deploy from a branch → Branch: `main`, Folder: `/docs`**
 
-Your digest will be live at `https://YOUR_USERNAME.github.io/weekly-papers/`.
+Your digest will be live at `https://theguega.github.io/weekly-papers/`.
 
 ### 4. Generate the first digest now
 

@@ -8,7 +8,9 @@ import arxiv
 import requests
 
 
-def fetch_arxiv_papers(categories: list[str], keywords: list[str], lookback_days: int) -> list[dict]:
+def fetch_arxiv_papers(
+    categories: list[str], keywords: list[str], lookback_days: int
+) -> list[dict]:
     client = arxiv.Client(page_size=100, delay_seconds=3)
     cutoff = datetime.now(timezone.utc) - timedelta(days=lookback_days)
 
@@ -31,18 +33,20 @@ def fetch_arxiv_papers(categories: list[str], keywords: list[str], lookback_days
         if result.published < cutoff:
             break
         arxiv_id = result.entry_id.split("/")[-1]
-        papers.append({
-            "arxiv_id": arxiv_id,
-            "title": result.title.replace("\n", " ").strip(),
-            "authors": [a.name for a in result.authors[:5]],
-            "abstract": result.summary.replace("\n", " ").strip(),
-            "published": result.published.strftime("%Y-%m-%d"),
-            "url": f"https://arxiv.org/abs/{arxiv_id}",
-            "pdf_url": result.pdf_url,
-            "categories": result.categories,
-            "has_code": False,
-            "code_url": None,
-        })
+        papers.append(
+            {
+                "arxiv_id": arxiv_id,
+                "title": result.title.replace("\n", " ").strip(),
+                "authors": [a.name for a in result.authors[:5]],
+                "abstract": result.summary.replace("\n", " ").strip(),
+                "published": result.published.strftime("%Y-%m-%d"),
+                "url": f"https://arxiv.org/abs/{arxiv_id}",
+                "pdf_url": result.pdf_url,
+                "categories": result.categories,
+                "has_code": False,
+                "code_url": None,
+            }
+        )
 
     return papers
 

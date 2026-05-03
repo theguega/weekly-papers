@@ -43,7 +43,10 @@ def _call_with_retry(client, model_name: str, prompt: str, paper: dict) -> dict:
                 print(f"  [WARN] Rate limited, retrying in {wait}s…", flush=True)
                 time.sleep(wait)
             else:
-                print(f"  [WARN] Gemini failed for '{paper['title'][:60]}': {e}", flush=True)
+                print(
+                    f"  [WARN] Gemini failed for '{paper['title'][:60]}': {e}",
+                    flush=True,
+                )
                 return {
                     "one_liner": paper["title"],
                     "problem": "Summary unavailable.",
