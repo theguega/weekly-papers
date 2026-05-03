@@ -6,50 +6,17 @@ Every Monday at 07:00 UTC a GitHub Action fetches the latest papers, scores them
 
 ---
 
-## Setup (one-time, ~5 min)
-
-### 1. Push this repo to GitHub
-
-```bash
-git add .
-git commit -m "init"
-git remote add origin https://github.com/theguega/weekly-papers.git
-git push -u origin main
-```
-
-### 2. Add your free Gemini API key
-
-Get one at [aistudio.google.com](https://aistudio.google.com) (free, no credit card).
-
-In your repo: **Settings → Secrets and variables → Actions → New repository secret**
-- Name: `GEMINI_API_KEY`
-- Value: your key
-
-### 3. Enable GitHub Pages
-
-**Settings → Pages → Source: Deploy from a branch → Branch: `main`, Folder: `/docs`**
-
-Your digest will be live at `https://theguega.github.io/weekly-papers/`.
-
-### 4. Generate the first digest now
-
-**Actions → Weekly Papers Digest → Run workflow**
-
-The workflow will fetch papers, summarize, commit, and your Pages site will update in ~1 minute.
-
----
-
 ## Configuration
 
 Edit `config.yaml` to tune what gets fetched:
 
-| Key | Default | Description |
-|---|---|---|
-| `keywords` | VLA, diffusion policy, … | Relevance scoring keywords |
-| `arxiv_categories` | cs.RO, cs.LG, cs.CV | ArXiv categories to search |
-| `max_papers` | 12 | Max papers per digest |
-| `lookback_days` | 8 | How far back to search |
-| `gemini_model` | gemini-2.0-flash | Gemini model to use |
+| Key                | Default                  | Description                |
+| ------------------ | ------------------------ | -------------------------- |
+| `keywords`         | VLA, diffusion policy, … | Relevance scoring keywords |
+| `arxiv_categories` | cs.RO, cs.LG, cs.CV      | ArXiv categories to search |
+| `max_papers`       | 12                       | Max papers per digest      |
+| `lookback_days`    | 8                        | How far back to search     |
+| `gemini_model`     | gemini-2.0-flash         | Gemini model to use        |
 
 ---
 
