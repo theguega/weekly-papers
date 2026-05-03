@@ -1,0 +1,28 @@
+keywords:
+  - vision-language-action
+  - VLA
+  - robot learning
+  - imitation learning
+  - diffusion policy
+  - robot manipulation
+  - teleoperation
+  - dexterous manipulation
+  - sim-to-real
+  - world model robot
+  - foundation model robot
+  - behavior cloning
+  - bimanual
+  - whole-body control
+  - lerobot
+  - openVLA
+  - ACT
+  - action chunking
+
+arxiv_categories:
+  - cs.RO
+  - cs.LG
+  - cs.CV
+
+max_papers: 12
+lookback_days: 8
+gemini_model: gemini-2.0-flash
