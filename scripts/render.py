@@ -135,7 +135,7 @@ header h1 {
 /* ── 4-section summary grid ── */
 .sections {
   display: grid;
-  grid-template-columns: 88px 1fr;
+  grid-template-columns: max-content 1fr;
   gap: 6px 12px;
   margin-bottom: 22px;
   align-items: start;

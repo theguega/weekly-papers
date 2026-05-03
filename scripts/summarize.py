@@ -25,29 +25,40 @@ Title: {title}
 Abstract: {abstract}"""
 
 
-def summarize_papers(papers: list[dict], api_key: str, model_name: str) -> list[dict]:
-    client = genai.Client(api_key=api_key)
-
-    for paper in papers:
-        prompt = PROMPT.format(title=paper["title"], abstract=paper["abstract"])
+def _call_with_retry(client, model_name: str, prompt: str, paper: dict) -> dict:
+    for attempt in range(3):
         try:
             response = client.models.generate_content(model=model_name, contents=prompt)
             text = response.text.strip()
-            # Strip markdown fences if the model wraps anyway
             if text.startswith("```"):
                 text = text.split("```")[1]
                 if text.startswith("json"):
                     text = text[4:]
                 text = text.strip()
-            paper["summary"] = json.loads(text)
+            return json.loads(text)
         except Exception as e:
-            paper["summary"] = {
-                "one_liner": paper["title"],
-                "problem": "Summary unavailable.",
-                "approach": paper["abstract"][:400] + "…",
-                "result": "",
-                "relevance": "",
-            }
-        time.sleep(2)  # stay within free-tier rate limit (15 RPM)
+            msg = str(e)
+            if "429" in msg and attempt < 2:
+                wait = 45 * (attempt + 1)
+                print(f"  [WARN] Rate limited, retrying in {wait}s…", flush=True)
+                time.sleep(wait)
+            else:
+                print(f"  [WARN] Gemini failed for '{paper['title'][:60]}': {e}", flush=True)
+                return {
+                    "one_liner": paper["title"],
+                    "problem": "Summary unavailable.",
+                    "approach": paper["abstract"][:400] + "…",
+                    "result": "",
+                    "relevance": "",
+                }
+
+
+def summarize_papers(papers: list[dict], api_key: str, model_name: str) -> list[dict]:
+    client = genai.Client(api_key=api_key)
+
+    for paper in papers:
+        prompt = PROMPT.format(title=paper["title"], abstract=paper["abstract"])
+        paper["summary"] = _call_with_retry(client, model_name, prompt, paper)
+        time.sleep(4)  # stay well within free-tier rate limit (15 RPM)
 
     return papers

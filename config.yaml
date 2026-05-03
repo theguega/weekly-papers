@@ -25,4 +25,4 @@ arxiv_categories:
 
 max_papers: 12
 lookback_days: 8
-gemini_model: gemini-2.0-flash
+gemini_model: gemini-3-flash-preview
