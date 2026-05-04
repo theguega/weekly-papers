@@ -172,6 +172,9 @@ header h1 {
 .btn-arxiv:hover { background: #e2e8f0; color: #1e293b; }
 .btn-code  { background: #d1fae5; color: #065f46; }
 .btn-code:hover { background: #a7f3d0; }
+.btn-poc   { background: #fef3c7; color: #92400e; border: none; cursor: pointer; font-family: inherit; }
+.btn-poc:hover { background: #fde68a; }
+.btn-poc.copied { background: #d1fae5; color: #065f46; }
 
 /* ── Footer ── */
 footer {
@@ -241,10 +244,10 @@ footer a:hover { color: #f8fafc; }
   <div class="digest-list">
 <div class="digest-entry">
   <div class="digest-info">
-    <span class="digest-week">Apr 26 – May 3, 2026</span>
-    <span class="digest-meta">3 papers &nbsp;·&nbsp; 2 with code</span>
+    <span class="digest-week">Apr 27 – May 4, 2026</span>
+    <span class="digest-meta">12 papers &nbsp;·&nbsp; 0 with code</span>
   </div>
-  <a class="btn-view" href="digests/2026-W18.html">View digest &rarr;</a>
+  <a class="btn-view" href="digests/2026-W19.html">View digest &rarr;</a>
 </div>
 
   </div>
@@ -254,5 +257,15 @@ footer a:hover { color: #f8fafc; }
     <span>Curated from ArXiv &amp; Papers With Code &nbsp;·&nbsp; Summarized with Gemini Flash</span>
   </div>
 </footer>
+<script>
+function copyPOC(btn) {
+  navigator.clipboard.writeText(btn.dataset.prompt).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 1800);
+  });
+}
+</script>
 </body>
 </html>
