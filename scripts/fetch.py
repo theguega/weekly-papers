@@ -8,6 +8,13 @@ import arxiv
 import requests
 
 
+def _is_arxiv_rate_limit(err: Exception) -> bool:
+    status_code = getattr(err, "status_code", None) or getattr(err, "status", None)
+    if status_code == 429:
+        return True
+    return "HTTP 429" in str(err)
+
+
 def fetch_arxiv_papers(
     categories: list[str], keywords: list[str], lookback_days: int
 ) -> list[dict]:
@@ -28,27 +35,42 @@ def fetch_arxiv_papers(
         sort_order=arxiv.SortOrder.Descending,
     )
 
-    papers = []
-    for result in client.results(search):
-        if result.published < cutoff:
-            break
-        arxiv_id = result.entry_id.split("/")[-1]
-        papers.append(
-            {
-                "arxiv_id": arxiv_id,
-                "title": result.title.replace("\n", " ").strip(),
-                "authors": [a.name for a in result.authors[:5]],
-                "abstract": result.summary.replace("\n", " ").strip(),
-                "published": result.published.strftime("%Y-%m-%d"),
-                "url": f"https://arxiv.org/abs/{arxiv_id}",
-                "pdf_url": result.pdf_url,
-                "categories": result.categories,
-                "has_code": False,
-                "code_url": None,
-            }
-        )
+    max_attempts = 5
+    base_delay_seconds = 15
+    for attempt in range(max_attempts):
+        papers = []
+        try:
+            for result in client.results(search):
+                if result.published < cutoff:
+                    break
+                arxiv_id = result.entry_id.split("/")[-1]
+                papers.append(
+                    {
+                        "arxiv_id": arxiv_id,
+                        "title": result.title.replace("\n", " ").strip(),
+                        "authors": [a.name for a in result.authors[:5]],
+                        "abstract": result.summary.replace("\n", " ").strip(),
+                        "published": result.published.strftime("%Y-%m-%d"),
+                        "url": f"https://arxiv.org/abs/{arxiv_id}",
+                        "pdf_url": result.pdf_url,
+                        "categories": result.categories,
+                        "has_code": False,
+                        "code_url": None,
+                    }
+                )
+            return papers
+        except arxiv.HTTPError as err:
+            is_last_attempt = attempt == max_attempts - 1
+            if is_last_attempt or not _is_arxiv_rate_limit(err):
+                raise
+            delay = base_delay_seconds * (2**attempt)
+            print(
+                f"ArXiv API rate-limited (429). Retrying in {delay}s "
+                f"({attempt + 1}/{max_attempts - 1})..."
+            )
+            time.sleep(delay)
 
-    return papers
+    return []
 
 
 def enrich_with_code(papers: list[dict]) -> list[dict]:
