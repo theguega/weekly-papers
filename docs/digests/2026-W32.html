@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Papers · Jul 27 – Aug 3, 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #f0f2f5;
+  color: #1e293b;
+  line-height: 1.65;
+  font-size: 15px;
+}
+
+a { color: inherit; }
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Header ── */
+header {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 52px 0 44px;
+  margin-bottom: 44px;
+}
+.logo {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7c6af7;
+  margin-bottom: 14px;
+}
+header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.subtitle {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+.stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.stat {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(124, 106, 247, 0.15);
+  color: #a89cf7;
+}
+
+/* ── Paper cards ── */
+.papers {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 64px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  border-left: 4px solid #c7d2fe;
+  padding: 26px 28px 22px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
+.card.has-code { border-left-color: #34d399; }
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+}
+.badge-code { background: #d1fae5; color: #065f46; }
+.badge-cat  { background: #ede9fe; color: #5b21b6; }
+
+.card-title {
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  margin-bottom: 5px;
+}
+.card-title a {
+  text-decoration: none;
+  color: #0f172a;
+}
+.card-title a:hover { color: #4f46e5; }
+
+.card-meta {
+  font-size: 12.5px;
+  color: #94a3b8;
+  margin-bottom: 18px;
+}
+
+.one-liner {
+  font-size: 14px;
+  font-style: italic;
+  color: #475569;
+  border-left: 3px solid #e0e7ff;
+  padding-left: 14px;
+  margin-bottom: 22px;
+  line-height: 1.55;
+}
+
+/* ── 4-section summary grid ── */
+.sections {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 12px;
+  margin-bottom: 22px;
+  align-items: start;
+}
+.sec-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-top: 3px;
+  white-space: nowrap;
+}
+.lbl-problem   { color: #dc2626; }
+.lbl-approach  { color: #2563eb; }
+.lbl-result    { color: #7c3aed; }
+.lbl-relevance { color: #059669; }
+.sec-content {
+  font-size: 13.5px;
+  color: #334155;
+  line-height: 1.6;
+}
+
+/* ── Links ── */
+.card-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn {
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-arxiv { background: #f1f5f9; color: #475569; }
+.btn-arxiv:hover { background: #e2e8f0; color: #1e293b; }
+.btn-code  { background: #d1fae5; color: #065f46; }
+.btn-code:hover { background: #a7f3d0; }
+.btn-poc   { background: #fef3c7; color: #92400e; border: none; cursor: pointer; font-family: inherit; }
+.btn-poc:hover { background: #fde68a; }
+.btn-poc.copied { background: #d1fae5; color: #065f46; }
+
+/* ── Footer ── */
+footer {
+  background: #0f172a;
+  color: #64748b;
+  padding: 28px 0;
+  font-size: 13px;
+}
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+footer a { color: #94a3b8; text-decoration: none; }
+footer a:hover { color: #f8fafc; }
+
+/* ── Index page ── */
+.digest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 64px;
+}
+.digest-entry {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 18px 22px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.digest-info { display: flex; flex-direction: column; gap: 4px; }
+.digest-week { font-weight: 600; font-size: 15px; color: #0f172a; }
+.digest-meta { font-size: 13px; color: #94a3b8; }
+.btn-view {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 7px;
+  background: #ede9fe;
+  color: #4f46e5;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-view:hover { background: #ddd6fe; }
+
+@media (max-width: 600px) {
+  .sections { grid-template-columns: 1fr; }
+  .sec-label { margin-bottom: -4px; }
+  .digest-entry { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="logo">weekly-papers</div>
+    <h1>VLA &amp; Robot Learning Digest</h1>
+    <p class="subtitle">Jul 27 – Aug 3, 2026</p>
+    <div class="stats">
+      <span class="stat">12 papers</span>
+      <span class="stat">0 with code</span>
+    </div>
+  </div>
+</header>
+<main class="container">
+  <div class="papers">
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.26991v2" target="_blank">RL$^2$-VLA: Adaptive RL Latent Compositional Steering with Test-Time Scaling for Vision-Language-Action Models</a></h2>
+  <p class="card-meta">Derek Ming Siang Tan, Shailesh Shailesh, Srikrishna Iyer et al. &nbsp;·&nbsp; 2026-07-29</p>
+  <p class="one-liner">Adaptive latent steering for VLAs using offline RL to improve out-of-distribution performance through selective inference-time intervention.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">VLA models suffer from low action diversity and correlated failure modes in out-of-distribution tasks. Existing steering methods apply interventions indiscriminately, often perturbing successful trajectories.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Trains a lightweight offline RL policy on VLA action latents to compose flow velocities with the frozen base model. Compositional steering is adaptively activated only when a failure predictor indicates the base policy is likely to fail.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Achieved up to a 17.3% increase in success rates across SIMPLER and PolaRiS benchmarks in out-of-domain settings.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Enables modular, test-time performance scaling for large VLAs without costly retraining. It provides a principled way to inject RL-driven diversity into frozen imitation-learned policies.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.26991v2" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   RL$^2$-VLA: Adaptive RL Latent Compositional Steering with Test-Time Scaling for Vision-Language-Action Models
+Authors: Derek Ming Siang Tan, Shailesh Shailesh, Srikrishna Iyer et al.
+ArXiv:   https://arxiv.org/abs/2607.26991v2
+Repo:   not available
+
+## What to build
+Problem:  VLA models suffer from low action diversity and correlated failure modes in out-of-distribution tasks. Existing steering methods apply interventions indiscriminately, often perturbing successful trajectories.
+Approach: Trains a lightweight offline RL policy on VLA action latents to compose flow velocities with the frozen base model. Compositional steering is adaptively activated only when a failure predictor indicates the base policy is likely to fail.
+Target:   Achieved up to a 17.3% increase in success rates across SIMPLER and PolaRiS benchmarks in out-of-domain settings.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Despite the impressive visuomotor capabilities enabled by Vision-Language-Action (VLA) models, their performance often degrades on challenging and out-of-domain tasks. Recent test-time steering and scaling methods improve performance without extensive data collection and retraining, but action samples often remain concentrated around similar behaviors and therefore inherit correlated failure modes. Moreover, existing methods apply the same intervention strategy at every timestep, regardless of whether the base policy is already likely to succeed. To address these limitations, we introduce $RL^2$, an adaptive inference-time steering framework that leverages Reinforcement Learning on VLA Latents. First, we train a lightweight offline RL policy conditioned on expressive latents extracted from the VLA action expert and compose its flow velocity with that of the frozen VLA during inference. This compositional steering strategy combines the behavioral priors of large-scale imitation learning with the action diversity induced by offline RL beyond dominant demonstration modes. We further discover that inference-time steering follows fundamentally different scaling laws under success and failure states, revealing that action diversity is most beneficial when the base VLA is likely to fail, but can unnecessarily perturb already-accurate actions when success is likely. Building on this insight, $RL^2$ activates compositional steering only when failure is predicted. Across the SIMPLER and PolaRiS benchmarks, $RL^2$ improves success rates by up to +17.3% in out-of-domain settings, while ablations and scaling studies demonstrate the importance of latent representations and RL training. Finally, real-world experiments demonstrate that these gains transfer beyond simulation, establishing $RL^2$ as a practical and modular steering framework for VLA deployment.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.29596v1" target="_blank">FibVLA: An Efficient Temporal Vision-Language-Action Model with Fibonacci Sampling</a></h2>
+  <p class="card-meta">Li Lin, Wujun Xu, Weiwei Meng et al. &nbsp;·&nbsp; 2026-07-31</p>
+  <p class="one-liner">FibVLA: An Efficient Temporal Vision-Language-Action Model with Fibonacci Sampling</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Summary unavailable.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Vision-language-action models (VLAs), which leverage the cognition of multimodal information to infer physical-world actions, provide a generalized solution for embodied AI applications. Conventional VLAs usually concentrate on current digital cognition. While some efforts are made to enhance VLAs' reasoning capabilities by capturing temporal information, encoding the long-context history causes a…</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.29596v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   FibVLA: An Efficient Temporal Vision-Language-Action Model with Fibonacci Sampling
+Authors: Li Lin, Wujun Xu, Weiwei Meng et al.
+ArXiv:   https://arxiv.org/abs/2607.29596v1
+Repo:   not available
+
+## What to build
+Problem:  Summary unavailable.
+Approach: Vision-language-action models (VLAs), which leverage the cognition of multimodal information to infer physical-world actions, provide a generalized solution for embodied AI applications. Conventional VLAs usually concentrate on current digital cognition. While some efforts are made to enhance VLAs&#x27; reasoning capabilities by capturing temporal information, encoding the long-context history causes a…
+Target:   
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-language-action models (VLAs), which leverage the cognition of multimodal information to infer physical-world actions, provide a generalized solution for embodied AI applications. Conventional VLAs usually concentrate on current digital cognition. While some efforts are made to enhance VLAs&#x27; reasoning capabilities by capturing temporal information, encoding the long-context history causes an efficiency-decreasing issue. To reconcile the conflict between capturing temporal information and maintaining inference efficiency in VLAs, this paper introduces FibVLA, an efficient framework featuring temporal perception of long-context history. Specifically, we leverage logarithmic hindsight sampling to both proprioceptive states and visual frames to capture long-term temporal dependencies with minimal redundancy. For the action expert, we introduce the flow matching to produce action distributions, and the Fibonacci recurrent inference strategy to generate long-range planning steps based on real-time closed-loop feedback. Experiments demonstrate that FibVLA significantly improves action smoothness and success rates without retraining large-scale visual encoders. Efficiency analysis demonstrates superior real-time responsiveness compared to video-based baselines in real-world evaluations.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.CV</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.27205v1" target="_blank">TurboVLA: Real-Time Vision-Language-Action Model at 32 Hz on an RTX 4090 with <1 GB VRAM</a></h2>
+  <p class="card-meta">Hengyi Xie, Chenfei Yao, Xianjin Wu et al. &nbsp;·&nbsp; 2026-07-29</p>
+  <p class="one-liner">Efficient V+L to A architecture achieving 32 Hz inference with 0.2B parameters and <1GB VRAM.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Standard LLM-centric VLA pathways cause prohibitive inference latency and memory overhead, limiting real-time robotic deployment on consumer hardware.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Replaces the central LLM backbone with independent modality encoders, lightweight bidirectional vision-language interaction, and a compact action-chunking decoder.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Achieves 97.7% average success on LIBERO benchmarks with 31.2ms latency and 0.9GB VRAM usage on an RTX 4090.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Demonstrates that optimized, non-autoregressive architectures can outperform massive LLM-based VLAs while enabling high-frequency control on edge devices.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.27205v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   TurboVLA: Real-Time Vision-Language-Action Model at 32 Hz on an RTX 4090 with &lt;1 GB VRAM
+Authors: Hengyi Xie, Chenfei Yao, Xianjin Wu et al.
+ArXiv:   https://arxiv.org/abs/2607.27205v1
+Repo:   not available
+
+## What to build
+Problem:  Standard LLM-centric VLA pathways cause prohibitive inference latency and memory overhead, limiting real-time robotic deployment on consumer hardware.
+Approach: Replaces the central LLM backbone with independent modality encoders, lightweight bidirectional vision-language interaction, and a compact action-chunking decoder.
+Target:   Achieves 97.7% average success on LIBERO benchmarks with 31.2ms latency and 0.9GB VRAM usage on an RTX 4090.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-language-action (VLA) models commonly adopt an LLM-centric $V \to L \to A$ pathway, where visual observations are projected into the representation space of a large language model before being decoded into robot actions. Although effective, this design incurs substantial computation and memory overhead at every policy invocation. In this work, we introduce TurboVLA, a new VLA paradigm that reformulates the conventional $V \to L \to A$ pathway as a direct $V + L \to A$ mapping. Instead of using a large language model as the central interface between perception and action, TurboVLA independently encodes visual observations and language instructions, directly exchanges information between them through lightweight bidirectional vision-language interaction, and predicts continuous action chunks with a compact decoder. This simple design constructs task-conditioned representations directly from visual and linguistic features, significantly reducing the computational and memory costs of VLA inference. On LIBERO, TurboVLA achieves 97.7% average success with only 0.2B parameters, 31.2 ms inference latency, and 0.9 GB inference VRAM on a consumer-grade RTX 4090, matching or outperforming substantially larger VLA policies. These results establish TurboVLA as a simple and effective alternative to the prevailing LLM-centric VLA paradigm, offering a new perspective on how vision, language, and action can be connected for efficient robotic manipulation. Code is available at https://github.com/H-EmbodVis/TurboVLA.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.29613v1" target="_blank">WCM: A World Critic Model for Vision-Language-Action Reinforcement Learning</a></h2>
+  <p class="card-meta">Senyu Fei, Xiaopeng Yu, Siyin Wang et al. &nbsp;·&nbsp; 2026-07-31</p>
+  <p class="one-liner">A joint world-modeling and value-estimation critic using LeJEPA to capture temporal dynamics for VLA reinforcement learning.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Standard VLA critics use single-frame observations, failing under partial observability. Scalar-return regression lacks sufficient supervision to learn temporal structure in high-dimensional visual spaces.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">WCM utilizes a lightweight LeJEPA architecture to jointly predict future latent states and estimate values. This explicitly trains the critic’s representation to capture temporal dynamics instead of relying solely on return regression.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Achieved state-of-the-art performance across 149 tasks, showing strong out-of-distribution generalization. Real-world tests on seven manipulation tasks confirmed stable deployment with Pi0.5 and OpenVLA-OFT backbones.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a robust framework for RL post-training of large VLAs, addressing core credit assignment and state representation issues in robotic control.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.29613v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   WCM: A World Critic Model for Vision-Language-Action Reinforcement Learning
+Authors: Senyu Fei, Xiaopeng Yu, Siyin Wang et al.
+ArXiv:   https://arxiv.org/abs/2607.29613v1
+Repo:   not available
+
+## What to build
+Problem:  Standard VLA critics use single-frame observations, failing under partial observability. Scalar-return regression lacks sufficient supervision to learn temporal structure in high-dimensional visual spaces.
+Approach: WCM utilizes a lightweight LeJEPA architecture to jointly predict future latent states and estimate values. This explicitly trains the critic’s representation to capture temporal dynamics instead of relying solely on return regression.
+Target:   Achieved state-of-the-art performance across 149 tasks, showing strong out-of-distribution generalization. Real-world tests on seven manipulation tasks confirmed stable deployment with Pi0.5 and OpenVLA-OFT backbones.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Reinforcement learning (RL) post-training of Vision-Language-Action (VLA) models has shown strong promise for robotic manipulation. Among RL methods, critic-based approaches rely on a value estimator that predominantly operates on single-frame observations or single-frame VLM backbone latents, which is a fundamental mismatch with the partially observable nature of robot control. A naive approach to incorporate observation history into the critic incurs exponential complexity with high-dimensional visual space, and still fails because pure scalar-return regression provides insufficient supervision for learning cross-temporal dynamics. We identify the root cause as a state approximation problem: without an explicit world modeling objective, the critic&#x27;s representation cannot capture the temporal structure needed for accurate value estimation. To address this, we propose the World Critic Model (WCM), built on a lightweight LeJEPA architecture; WCM jointly predicts future latent state and estimates values, such that the critic&#x27;s representation is explicitly trained to capture temporal dynamics rather than merely regress scalar returns. WCM integrates seamlessly into both on-policy and off-policy training pipelines and is compatible with state-of-the-art VLA backbones including Pi0, Pi0.5, and OpenVLA-OFT. Extensive experiments on 149 tasks across four benchmarks demonstrate that WCM consistently achieves state-of-the-art performance in both in-distribution and out-of-distribution settings, with particularly strong generalization gains. We further validate WCM on seven real-world manipulation tasks using OpenVLA-OFT and Pi0.5 with off-policy RL, confirming stable deployment across diverse settings.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.25912v1" target="_blank">SAM3D-Guided Object-Centric Representation Alignment for Vision-Language-Action Models</a></h2>
+  <p class="card-meta">Zonghe Liu, Shanyuan Jie, Xiaoquan Sun et al. &nbsp;·&nbsp; 2026-07-28</p>
+  <p class="one-liner">Aligns VLA visual features with SAM3D-extracted 3D priors during training to improve spatial reasoning during RGB-only inference.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Standard VLAs lack fine-grained 3D understanding, struggling with object occlusion, pose variation, and precise spatial interactions.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Uses SAM3D as a frozen teacher to extract dense object-centric 3D representations from task-relevant masks. These representations are distilled into intermediate visual features of the pi_0 policy during training, preserving an RGB-only pipeline for inference.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Achieved a 99.1% success rate on LIBERO and a 4.11 average sequence length on CALVIN, demonstrating superior robustness in long-horizon manipulation.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a training-time-only strategy to imbue VLAs with 3D geometry awareness without requiring depth sensors or point cloud processing during deployment.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.25912v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   SAM3D-Guided Object-Centric Representation Alignment for Vision-Language-Action Models
+Authors: Zonghe Liu, Shanyuan Jie, Xiaoquan Sun et al.
+ArXiv:   https://arxiv.org/abs/2607.25912v1
+Repo:   not available
+
+## What to build
+Problem:  Standard VLAs lack fine-grained 3D understanding, struggling with object occlusion, pose variation, and precise spatial interactions.
+Approach: Uses SAM3D as a frozen teacher to extract dense object-centric 3D representations from task-relevant masks. These representations are distilled into intermediate visual features of the pi_0 policy during training, preserving an RGB-only pipeline for inference.
+Target:   Achieved a 99.1% success rate on LIBERO and a 4.11 average sequence length on CALVIN, demonstrating superior robustness in long-horizon manipulation.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-Language-Action (VLA) models have shown strong potential for general robot manipulation, but most existing models rely on 2D visual-language backbones and lack fine-grained 3D understanding of target objects, especially under occlusion, pose variation, scale changes, and precise spatial interaction. We propose an object-centric 3D representation alignment framework built upon $π_0$, using SAM3D as a frozen 3D teacher to provide target-object 3D priors during training. Specifically, we localize task-relevant objects with object recognition models, generate corresponding object masks, and use SAM3D to extract dense object-level 3D representations, which are aligned with intermediate visual features of $π_0$. This enables the policy to internalize target-object 3D information while preserving the original RGB-language-to-action inference pipeline without requiring depth, point clouds, masks, SAM3D, or additional 3D modules at test time. Simulation experiments show consistent improvements, achieving 99.1\% on LIBERO and an average length of 4.11 on CALVIN. Real-world experiments further demonstrate that our method is particularly effective in long-horizon manipulation scenarios where the robot must focus on different target objects across multiple subtasks.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.29169v1" target="_blank">ActFovea: Runtime Safeguarding for VLA Policies via Spatiotemporal Visual-Action Consistency</a></h2>
+  <p class="card-meta">Wenda Yu, Tianshi Wang, Fengling Li et al. &nbsp;·&nbsp; 2026-07-31</p>
+  <p class="one-liner">ActFovea: Runtime Safeguarding for VLA Policies via Spatiotemporal Visual-Action Consistency</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Summary unavailable.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Vision-language-action (VLA) policies achieve strong performance in robotic manipulation but remain vulnerable to runtime disturbances that break the temporal alignment among visual observations, robot states, and executed actions. We introduce ActFovea, a plug-and-play safeguarding framework that detects and mitigates such failures without retraining or modifying the underlying VLA policy. ActFov…</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.29169v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   ActFovea: Runtime Safeguarding for VLA Policies via Spatiotemporal Visual-Action Consistency
+Authors: Wenda Yu, Tianshi Wang, Fengling Li et al.
+ArXiv:   https://arxiv.org/abs/2607.29169v1
+Repo:   not available
+
+## What to build
+Problem:  Summary unavailable.
+Approach: Vision-language-action (VLA) policies achieve strong performance in robotic manipulation but remain vulnerable to runtime disturbances that break the temporal alignment among visual observations, robot states, and executed actions. We introduce ActFovea, a plug-and-play safeguarding framework that detects and mitigates such failures without retraining or modifying the underlying VLA policy. ActFov…
+Target:   
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-language-action (VLA) policies achieve strong performance in robotic manipulation but remain vulnerable to runtime disturbances that break the temporal alignment among visual observations, robot states, and executed actions. We introduce ActFovea, a plug-and-play safeguarding framework that detects and mitigates such failures without retraining or modifying the underlying VLA policy. ActFovea uses robot kinematics, proprioceptive states, and recent actions to construct action-conditioned foveated regions that retain contact-relevant areas and predicted motion corridors while suppressing task-irrelevant visual content. It detects runtime risks by evaluating whether visual motion and observation freshness remain consistent with geometric, proprioceptive, and action transitions. For recoverable disturbances, ActFovea constructs disturbance-specific candidate observations and accepts a recovery only after verifying the resulting action chunk. When stale or replayed observations make reliable recovery impossible, it invokes a bounded safe-failure procedure. In closed-loop evaluations of $π_0$ across multiple LIBERO suites, ActFovea increases success under localized visual overlays from 49.3\% to 90.3\%, closing 93.7\% of the gap to clean performance. It further improves success under action drift and visual delay by 7.0 and 9.8 percentage points, respectively, while preserving clean-task performance. Under frozen-observation replay, ActFovea triggers timely safe failure in all trials, with no unprotected failures. These results demonstrate that spatiotemporal visual-action consistency provides an effective basis for runtime safeguarding of VLA policies.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.27782v1" target="_blank">RedFlow: Redirect Failure into Action-Level Corrections for Flow-matching VLA Policy</a></h2>
+  <p class="card-meta">Zhengyang Yan, Junhao Li, Fangqi Zhu et al. &nbsp;·&nbsp; 2026-07-30</p>
+  <p class="one-liner">RedFlow: Redirect Failure into Action-Level Corrections for Flow-matching VLA Policy</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Summary unavailable.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Flow-matching Vision-Language-Action (VLA) policies have shown strong potential for robotic manipulation but often suffer from compounding errors caused by distribution shifts during deployment. While offline reinforcement learning (RL) provides a practical way to improve deployed policies using rollout data, existing methods either ignore failure data or exploit it only at the trajectory level, r…</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.27782v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   RedFlow: Redirect Failure into Action-Level Corrections for Flow-matching VLA Policy
+Authors: Zhengyang Yan, Junhao Li, Fangqi Zhu et al.
+ArXiv:   https://arxiv.org/abs/2607.27782v1
+Repo:   not available
+
+## What to build
+Problem:  Summary unavailable.
+Approach: Flow-matching Vision-Language-Action (VLA) policies have shown strong potential for robotic manipulation but often suffer from compounding errors caused by distribution shifts during deployment. While offline reinforcement learning (RL) provides a practical way to improve deployed policies using rollout data, existing methods either ignore failure data or exploit it only at the trajectory level, r…
+Target:   
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Flow-matching Vision-Language-Action (VLA) policies have shown strong potential for robotic manipulation but often suffer from compounding errors caused by distribution shifts during deployment. While offline reinforcement learning (RL) provides a practical way to improve deployed policies using rollout data, existing methods either ignore failure data or exploit it only at the trajectory level, resulting in low learning efficiency and persistent errors. We propose **RedFlow**, a fine-grained offline RL framework that redirects failure experiences into action-level corrective supervision for flow-matching VLA policies. RedFlow consists of two key components: (1) a **Context-Aware Corrective Matching** mechanism that identifies failure-inducing actions and retrieves successful alternatives from similar contexts as corrective targets, and (2) an **Adaptive Redirection Objective** that jointly reinforces successful actions, suppresses undesirable ones, and redirects recoverable failures toward corrective targets. By converting both successful and failed experiences into dense supervision, RedFlow enables robust recovery learning from mixed-quality data. Experiments on the LIBERO benchmark and three real-world manipulation tasks show that RedFlow consistently outperforms state-of-the-art offline RL baselines, improving the real-world success rate from 56.7% to 74.7%. It also matches strong on-policy methods (PPO, GRPO, and DDPO) while requiring roughly an order of magnitude fewer training samples.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.26513v1" target="_blank">Explicit Kinematic Guidance from Analytic Concepts for Vision-Language-Action Models</a></h2>
+  <p class="card-meta">Mingyang Sun, Jiude Wei, Xiujian Liang et al. &nbsp;·&nbsp; 2026-07-29</p>
+  <p class="one-liner">Integrates explicit 3D kinematic analytic concepts into VLA models for physically grounded, high-precision robot manipulation guidance.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Current VLA models rely on 2D inputs, lacking the 3D spatial awareness and kinematic understanding necessary for high-precision manipulation.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">A Concept Expert module generates programmatic 3D object blueprints using Vision Foundation Models. These Analytic Concepts provide dense rewards and spatial guidance during fine-tuning while enabling dynamic tracking of kinematic parameters during inference.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Evaluation shows consistent improvements in success rates and learning efficiency across both supervised and reinforcement learning robot manipulation settings.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a method to bridge the gap between 2D pixel-based policies and 3D physical grounding using structured, programmatic object representations.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.26513v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   Explicit Kinematic Guidance from Analytic Concepts for Vision-Language-Action Models
+Authors: Mingyang Sun, Jiude Wei, Xiujian Liang et al.
+ArXiv:   https://arxiv.org/abs/2607.26513v1
+Repo:   not available
+
+## What to build
+Problem:  Current VLA models rely on 2D inputs, lacking the 3D spatial awareness and kinematic understanding necessary for high-precision manipulation.
+Approach: A Concept Expert module generates programmatic 3D object blueprints using Vision Foundation Models. These Analytic Concepts provide dense rewards and spatial guidance during fine-tuning while enabling dynamic tracking of kinematic parameters during inference.
+Target:   Evaluation shows consistent improvements in success rates and learning efficiency across both supervised and reinforcement learning robot manipulation settings.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Current Vision-Language-Action (VLA) models rely mainly on 2D inputs, neglecting the rich object structural information and commonsense knowledge inherent in the 3D physical world. This deficiency restricts their spatial awareness and adaptability for complex, high-precision manipulation. To bridge this crucial gap, we construct a Concept Expert module for VLA to build executable Analytic Concepts that represent objects as explicit, programmatic blueprints. Our mechanism operates in two synergistic phases: First, prior to VLA inference, the Concept Expert leverages 3D information from Vision Foundation Models (VFMs) to estimate the initial kinematic and structural parameters. Second, throughout the manipulation process, the VLA model utilizes its inherent capability to dynamically track the dynamic concept parameters, continuously aligning them with observational changes to ensure persistent accuracy. Once established, the Analytic Concepts provide explicit, high-quality guidance for VLA fine-tuning through (1) dense, programmatic manipulation rewards and (2) precise spatial guidance.   This formulation allows VLA models to learn physically grounded interaction behaviors while maintaining end-to-end learning flexibility.   Our experimental results show consistent improvements in success rate and learning efficiency across supervised and reinforcement learning settings, demonstrating the effectiveness of structured, concept-based guidance for VLA post-training.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.AI</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.25487v1" target="_blank">CoTinyVLA: Chain-of-Thought Distillation for a Sub-Billion-Parameter Vision-Language-Action Model</a></h2>
+  <p class="card-meta">Minhyeok Lee, Chiyoung Kim, Chanhoe Gu et al. &nbsp;·&nbsp; 2026-07-28</p>
+  <p class="one-liner">CoTinyVLA: Chain-of-Thought Distillation for a Sub-Billion-Parameter Vision-Language-Action Model</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Summary unavailable.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Vision-Language-Action (VLA) models translate natural-language commands into robot action sequences, but leading systems on the LIBERO-Plus robustness benchmark use three- to seven-billion-parameter backbones whose memory demands can exceed embedded robotic budgets. We present CoTinyVLA, a 0.9B-parameter action model on a Qwen3.5-0.8B backbone that obtains that robustness by structuring supervisio…</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.25487v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   CoTinyVLA: Chain-of-Thought Distillation for a Sub-Billion-Parameter Vision-Language-Action Model
+Authors: Minhyeok Lee, Chiyoung Kim, Chanhoe Gu et al.
+ArXiv:   https://arxiv.org/abs/2607.25487v1
+Repo:   not available
+
+## What to build
+Problem:  Summary unavailable.
+Approach: Vision-Language-Action (VLA) models translate natural-language commands into robot action sequences, but leading systems on the LIBERO-Plus robustness benchmark use three- to seven-billion-parameter backbones whose memory demands can exceed embedded robotic budgets. We present CoTinyVLA, a 0.9B-parameter action model on a Qwen3.5-0.8B backbone that obtains that robustness by structuring supervisio…
+Target:   
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-Language-Action (VLA) models translate natural-language commands into robot action sequences, but leading systems on the LIBERO-Plus robustness benchmark use three- to seven-billion-parameter backbones whose memory demands can exceed embedded robotic budgets. We present CoTinyVLA, a 0.9B-parameter action model on a Qwen3.5-0.8B backbone that obtains that robustness by structuring supervision instead of enlarging the model. Three components target different axes of the problem: dual-view temporal input of 16 history frames per step with textual camera and time markers; hierarchical chain-of-thought (CoT) distillation from a 35B teacher into an episode-level Plan and a chunk-level Think span over task phase, gripper state and next subaction; and paraphrase augmentation expanding 40 base commands into 800 variants. On LIBERO-Plus, spanning 10,030 perturbed tasks across seven perturbation dimensions, CoTinyVLA reaches 90.8% on Spatial, 87.3% on Object, 86.6% on Goal and 80.7% on Long, leading the strongest 7B baseline on all four suites by 4.7, 2.8, 15.9 and 3.0 points, with every margin interval excluding zero. The gains concentrate on the hardest axes of the benchmark: across the eleven published baselines none exceeds 53.2% on Robot Initial States in any suite, whereas CoTinyVLA reaches 73.6% on Goal against 39.9% for the strongest baseline. Ablations show the three components to be separable by perturbation axis, and at a matched image budget how frames are divided between the two cameras and across time accounts for 8.6 points on its own. Closed-loop inference peaks at 2.25 GiB of allocated GPU memory, and paired interventions show the episode Plan to be load-bearing: replacing it with an empty or contradictory span costs 40 to 45 points of success. Structured supervision thus lets a 0.9B backbone exceed all of them. Code: https://github.com/BrainJellyPie/CoTinyVLA">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.24485v2" target="_blank">τ: Learning Touch-Augmented Vision-Language-Action Models from Future Visual Supervision</a></h2>
+  <p class="card-meta">Ning Cheng, Jinan Xu, Wanlin Li et al. &nbsp;·&nbsp; 2026-07-27</p>
+  <p class="one-liner">Integrates spatiotemporal tactile representations into VLAs using JEPA-inspired future visual supervision for contact-rich robot manipulation.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">High-dimensional tactile signals are difficult to integrate into pretrained VLAs due to data scarcity and complex temporal dynamics. Existing methods often rely on instantaneous contact states or low-dimensional wrench sequences.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Learns action-conditioned tactile representations through future visual supervision in latent space using a JEPA-inspired framework. These spatiotemporal tactile features fuse with vision-language embeddings for action generation, with visual supervision used only during training.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Outperforms existing models on the TacAura dataset across four contact-rich tasks and demonstrates generalization to unseen objects and scenes.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Enables the incorporation of high-dimensional tactile data into VLA architectures without inference-time overhead, providing a scalable path for contact-aware robot learning.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.24485v2" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   τ: Learning Touch-Augmented Vision-Language-Action Models from Future Visual Supervision
+Authors: Ning Cheng, Jinan Xu, Wanlin Li et al.
+ArXiv:   https://arxiv.org/abs/2607.24485v2
+Repo:   not available
+
+## What to build
+Problem:  High-dimensional tactile signals are difficult to integrate into pretrained VLAs due to data scarcity and complex temporal dynamics. Existing methods often rely on instantaneous contact states or low-dimensional wrench sequences.
+Approach: Learns action-conditioned tactile representations through future visual supervision in latent space using a JEPA-inspired framework. These spatiotemporal tactile features fuse with vision-language embeddings for action generation, with visual supervision used only during training.
+Target:   Outperforms existing models on the TacAura dataset across four contact-rich tasks and demonstrates generalization to unseen objects and scenes.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Incorporating tactile sensing into Vision-Language-Action (VLA) models holds promise for contact-rich manipulation, where visual observations alone often fail to capture critical cues about physical interactions. However, learning informative tactile representation while effectively adapting it to pretrained VLA models remains challenging under limited task-specific data. Existing methods either focus on instantaneous contact states or model temporal interaction dynamics using 6D wrench sequences, leaving high-dimensional tactile signals underexplored. To address these challenges, we present τ, a touch-augmented VLA framework that learns an action-conditioned spatiotemporal tactile representation from future visual supervision inspired by the Joint-Embedding Predictive Architecture (JEPA), and fuses it with vision-language features for action generation. This supervision operates in latent space and is used only during training, adding no deployment overhead. We also introduce TacAura, a dataset of synchronized vision, proprioception, and vision-based tactile signals across four representative contact-rich manipulation tasks. Experiments show that τ outperforms existing models and generalizes to unseen objects and scenes, delivering improved manipulation performance and robustness.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.29302v1" target="_blank">BWM: A Low-Cost High-Fidelity World Simulator for Robot Learning</a></h2>
+  <p class="card-meta">BWM Team &nbsp;·&nbsp; 2026-07-31</p>
+  <p class="one-liner">An action-conditioned world model for high-fidelity robot manipulation simulation, providing data augmentation and closed-loop policy evaluation.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Physics simulators require complex calibration and suffer from sim-to-real gaps, while existing video generators lack precise, fine-grained action conditioning.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">BWM utilizes an autoregressive architecture combining initial-environment guidance, dynamic visual history, and temporally aligned action conditioning. It employs trajectory replay and overlapping clip sampling to produce stateful future frame predictions for robot manipulation.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">BWM achieved first place in the WorldArena Challenge across all tracks and demonstrated superior functional utility for policy ranking and data augmentation.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">It offers a scalable, low-cost alternative to physics engines for training and evaluating VLA models through high-fidelity synthetic data and closed-loop assessment.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.29302v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   BWM: A Low-Cost High-Fidelity World Simulator for Robot Learning
+Authors: BWM Team
+ArXiv:   https://arxiv.org/abs/2607.29302v1
+Repo:   not available
+
+## What to build
+Problem:  Physics simulators require complex calibration and suffer from sim-to-real gaps, while existing video generators lack precise, fine-grained action conditioning.
+Approach: BWM utilizes an autoregressive architecture combining initial-environment guidance, dynamic visual history, and temporally aligned action conditioning. It employs trajectory replay and overlapping clip sampling to produce stateful future frame predictions for robot manipulation.
+Target:   BWM achieved first place in the WorldArena Challenge across all tracks and demonstrated superior functional utility for policy ranking and data augmentation.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Reliable robot learning requires a world simulator that can predict action consequences before execution on physical hardware, including risky and failure-prone outcomes. Existing physics simulators require substantial asset construction and calibration and still face a sim-to-real gap, while video generators often lack precise control over their responses to fine-grained robot actions. In this paper, we present the Boundless World Model (BWM), an open-source, low-cost, high-fidelity world simulator for robot manipulation. BWM is an action-conditioned world model that combines initial-environment guidance, dynamic visual history, and temporally aligned robot-action conditioning for stateful autoregressive prediction of future observations. We construct action-aligned training clips through trajectory replay, overlapping clip sampling, and initial-observation enhancement. BWM serves as a data engine that augments imitation-learning data with action-aligned rollouts, and as a policy evaluator for closed-loop assessment, risk anticipation, and policy ranking. Experiments on the WorldArena benchmark and physical robots demonstrate improved simulator fidelity and functional utility across the data-engine and policy-evaluator settings. BWM ranks first overall in the WorldArena Challenge across Track 1 and its two Track 2 applications. We release the BWM open-source ecosystem, including model checkpoints, training and inference code, and interfaces for data generation and policy evaluation.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2607.28596v1" target="_blank">FA-RDP: A Frequency-Adaptive Reactive Diffusion Policy for Contact-Rich Manipulation</a></h2>
+  <p class="card-meta">Lifeng Zhuo, Wendi Chen, Han Xue et al. &nbsp;·&nbsp; 2026-07-30</p>
+  <p class="one-liner">Dynamically switches between multi-step low-frequency and one-step high-frequency diffusion sampling for reactive, multimodal contact-rich manipulation.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Fixed-frequency diffusion policies cannot simultaneously preserve pre-contact action multimodality and provide the high-frequency reactivity required for contact-rich force feedback.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Uses a shared multi-frequency Transformer and a learned multimodality indicator to switch between multi-step and one-step sampling. Manifold Consistency Distillation reparameterizes the network for manifold-constrained action prediction.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Achieved the highest success rates across three contact-rich tasks compared to fixed-frequency baselines while maintaining distinct pre-contact trajectory modes.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a framework for scaling diffusion policies to tasks requiring both complex long-horizon planning and millisecond-level reactive control.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2607.28596v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   FA-RDP: A Frequency-Adaptive Reactive Diffusion Policy for Contact-Rich Manipulation
+Authors: Lifeng Zhuo, Wendi Chen, Han Xue et al.
+ArXiv:   https://arxiv.org/abs/2607.28596v1
+Repo:   not available
+
+## What to build
+Problem:  Fixed-frequency diffusion policies cannot simultaneously preserve pre-contact action multimodality and provide the high-frequency reactivity required for contact-rich force feedback.
+Approach: Uses a shared multi-frequency Transformer and a learned multimodality indicator to switch between multi-step and one-step sampling. Manifold Consistency Distillation reparameterizes the network for manifold-constrained action prediction.
+Target:   Achieved the highest success rates across three contact-rich tasks compared to fixed-frequency baselines while maintaining distinct pre-contact trajectory modes.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+In contact-rich manipulation, action multimodality and reactivity dominate different stages of a single episode. Before contact, multiple trajectories might be equally valid, making it important to preserve diverse action modes. After contact, geometric constraints and force limits narrow the solution space, while successful execution demands rapid responses to force feedback. However, standard diffusion policies use a fixed inference frequency and sampling steps throughout the episode, forcing a fundamental compromise: low-frequency, multi-step sampling better preserves pre-contact multimodality but responds slowly to force feedback, whereas high-frequency sampling improves reactivity but tends to collapse distinct pre-contact modes. To resolve this tradeoff, we present FA-RDP, a frequency-adaptive reactive diffusion policy. A shared multi-frequency visual-force Transformer predicts action chunks at both low and high frequencies, while a learned multimodality indicator dynamically selects multi-step low-frequency sampling before contact and one-step high-frequency sampling as action ambiguity decreases. We further introduce Manifold Consistency Distillation (MCD), which reparameterizes the diffusion network to predict actions on the robot action manifold while retaining DDPM-based residual supervision. Experiments on three contact-rich manipulation tasks show that FA-RDP achieves the highest success rate while preserving diverse pre-contact trajectory modes. Code and videos are available at https://fa-rdp.github.io.">🤖 POC</button></div>
+</div>
+  </div>
+</main>
+<footer>
+  <div class="container">
+    <a href="../index.html">&#8592; All digests</a>
+    <span>Curated from ArXiv &amp; Papers With Code &nbsp;·&nbsp; Summarized with Gemini Flash</span>
+  </div>
+</footer>
+<script>
+function copyPOC(btn) {
+  navigator.clipboard.writeText(btn.dataset.prompt).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 1800);
+  });
+}
+</script>
+</body>
+</html>
