@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Papers · Aug 10 – Aug 17, 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #f0f2f5;
+  color: #1e293b;
+  line-height: 1.65;
+  font-size: 15px;
+}
+
+a { color: inherit; }
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Header ── */
+header {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 52px 0 44px;
+  margin-bottom: 44px;
+}
+.logo {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7c6af7;
+  margin-bottom: 14px;
+}
+header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.subtitle {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+.stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.stat {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(124, 106, 247, 0.15);
+  color: #a89cf7;
+}
+
+/* ── Paper cards ── */
+.papers {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 64px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  border-left: 4px solid #c7d2fe;
+  padding: 26px 28px 22px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
+.card.has-code { border-left-color: #34d399; }
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+}
+.badge-code { background: #d1fae5; color: #065f46; }
+.badge-cat  { background: #ede9fe; color: #5b21b6; }
+
+.card-title {
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  margin-bottom: 5px;
+}
+.card-title a {
+  text-decoration: none;
+  color: #0f172a;
+}
+.card-title a:hover { color: #4f46e5; }
+
+.card-meta {
+  font-size: 12.5px;
+  color: #94a3b8;
+  margin-bottom: 18px;
+}
+
+.one-liner {
+  font-size: 14px;
+  font-style: italic;
+  color: #475569;
+  border-left: 3px solid #e0e7ff;
+  padding-left: 14px;
+  margin-bottom: 22px;
+  line-height: 1.55;
+}
+
+/* ── 4-section summary grid ── */
+.sections {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 12px;
+  margin-bottom: 22px;
+  align-items: start;
+}
+.sec-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-top: 3px;
+  white-space: nowrap;
+}
+.lbl-problem   { color: #dc2626; }
+.lbl-approach  { color: #2563eb; }
+.lbl-result    { color: #7c3aed; }
+.lbl-relevance { color: #059669; }
+.sec-content {
+  font-size: 13.5px;
+  color: #334155;
+  line-height: 1.6;
+}
+
+/* ── Links ── */
+.card-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn {
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-arxiv { background: #f1f5f9; color: #475569; }
+.btn-arxiv:hover { background: #e2e8f0; color: #1e293b; }
+.btn-code  { background: #d1fae5; color: #065f46; }
+.btn-code:hover { background: #a7f3d0; }
+.btn-poc   { background: #fef3c7; color: #92400e; border: none; cursor: pointer; font-family: inherit; }
+.btn-poc:hover { background: #fde68a; }
+.btn-poc.copied { background: #d1fae5; color: #065f46; }
+
+/* ── Footer ── */
+footer {
+  background: #0f172a;
+  color: #64748b;
+  padding: 28px 0;
+  font-size: 13px;
+}
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+footer a { color: #94a3b8; text-decoration: none; }
+footer a:hover { color: #f8fafc; }
+
+/* ── Index page ── */
+.digest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 64px;
+}
+.digest-entry {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 18px 22px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.digest-info { display: flex; flex-direction: column; gap: 4px; }
+.digest-week { font-weight: 600; font-size: 15px; color: #0f172a; }
+.digest-meta { font-size: 13px; color: #94a3b8; }
+.btn-view {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 7px;
+  background: #ede9fe;
+  color: #4f46e5;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-view:hover { background: #ddd6fe; }
+
+@media (max-width: 600px) {
+  .sections { grid-template-columns: 1fr; }
+  .sec-label { margin-bottom: -4px; }
+  .digest-entry { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="logo">weekly-papers</div>
+    <h1>VLA &amp; Robot Learning Digest</h1>
+    <p class="subtitle">Aug 10 – Aug 17, 2026</p>
+    <div class="stats">
+      <span class="stat">12 papers</span>
+      <span class="stat">0 with code</span>
+    </div>
+  </div>
+</header>
+<main class="container">
+  <div class="papers">
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.13924v1" target="_blank">BICPO-VLA: Behavior-Identified Continuation Preference Optimization for Smooth Asynchronous Vision-Language-Action Control</a></h2>
+  <p class="card-meta">Ming Shang, Yuchen Huang, Jiaoyang Chen et al. &nbsp;·&nbsp; 2026-08-14</p>
+  <p class="one-liner">Optimizes asynchronous VLA control using Haar-based action decomposition and preference alignment to bridge the request-to-handoff state gap.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Addressing the request-to-handoff gap in asynchronous control caused by intent ambiguity, inference-time state drift, and execution-time discontinuities.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Employs a causal history encoder for behavior identification and Haar subspace generation to accelerate inference. Uses BICPO with Flow-DPO to align generated action chunks with the actual future robot state at handoff.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Reduces inference-induced latency and improves trajectory continuity by adapting action chunks to actual handoff states without altering intended behavior.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a framework for high-frequency, low-latency deployment of large VLA models by mitigating state drift and ensuring smooth trajectory continuation.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.13924v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   BICPO-VLA: Behavior-Identified Continuation Preference Optimization for Smooth Asynchronous Vision-Language-Action Control
+Authors: Ming Shang, Yuchen Huang, Jiaoyang Chen et al.
+ArXiv:   https://arxiv.org/abs/2608.13924v1
+Repo:   not available
+
+## What to build
+Problem:  Addressing the request-to-handoff gap in asynchronous control caused by intent ambiguity, inference-time state drift, and execution-time discontinuities.
+Approach: Employs a causal history encoder for behavior identification and Haar subspace generation to accelerate inference. Uses BICPO with Flow-DPO to align generated action chunks with the actual future robot state at handoff.
+Target:   Reduces inference-induced latency and improves trajectory continuity by adapting action chunks to actual handoff states without altering intended behavior.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+The request-to-handoff gap has three coupled sources: ambiguity about the behavior intended at request time, physical-state drift accumulated during action generation, and residual incompatibility when the new action finally assumes control. BICPO-VLA addresses them in sequence. First, an instruction-aware causal history encoder identifies the behavior supported by the command and current task progress. Second, sequential Haar subspace generation decomposes each action chunk into complementary pairwise scaffold and residual coefficients, enabling two specialized generation stages followed by exact reconstruction. By reducing iterative refinement in the original action space, it shortens the interval over which the robot continues moving before the new chunk becomes available. Finally, BICPO rolls the known outgoing actions to the actual handoff state and applies reference-relative Flow-DPO among behaviorally matched candidates, adapting the generated chunk to the remaining request-to-handoff mismatch without changing its intended behavior.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.13395v1" target="_blank">FIRE-VLA: Failure-Informed Self-Evolution for Vision-Language-Action Models in Autonomous Driving</a></h2>
+  <p class="card-meta">Hao Dou &nbsp;·&nbsp; 2026-08-13</p>
+  <p class="one-liner">Improves driving VLA models via privileged self-distillation when standard relative policy optimization fails to provide useful signals.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Relative policy optimization like GRPO lacks a meaningful gradient signal when all sampled trajectories in a rollout group are failures.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Triggers self-distillation on low-reward rollout groups using a teacher model with privileged access to the hidden future trajectory. This teacher supervises the student's action tokens while standard GRPO remains active for all groups.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Reduced mean L2 planning error from 1.848m to 1.500m and decreased persistent failure prevalence from 13.03% to 11.20% on nuScenes.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a mechanism for robot-learning models to escape local minima in RL by using temporal future information as an internal supervision signal.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.13395v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   FIRE-VLA: Failure-Informed Self-Evolution for Vision-Language-Action Models in Autonomous Driving
+Authors: Hao Dou
+ArXiv:   https://arxiv.org/abs/2608.13395v1
+Repo:   not available
+
+## What to build
+Problem:  Relative policy optimization like GRPO lacks a meaningful gradient signal when all sampled trajectories in a rollout group are failures.
+Approach: Triggers self-distillation on low-reward rollout groups using a teacher model with privileged access to the hidden future trajectory. This teacher supervises the student&#x27;s action tokens while standard GRPO remains active for all groups.
+Target:   Reduced mean L2 planning error from 1.848m to 1.500m and decreased persistent failure prevalence from 13.03% to 11.20% on nuScenes.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Reinforcement learning improves autonomous-driving vision-language-action (VLA) models by evaluating trajectories sampled from the current policy. Group relative policy optimization (GRPO) learns from reward differences within each rollout group. When all sampled trajectories are poor, this relative signal can rank failures without identifying behavior outside the failed region. We introduce FIRE-VLA, a failure-informed self-evolution framework that converts such unresolved failures into privileged supervision for the next policy. Low-reward, low-diversity groups trigger self-distillation from a frozen round-start copy of the same model. Teacher and student have the same parameter scale, but only the teacher observes the hidden future trajectory. Supervision follows the student&#x27;s generated prefix and is restricted to answer tokens, while GRPO remains active for every group. The updated policy supplies the teacher for the next round, allowing the routed failure distribution to change with the policy without requiring a larger external teacher. Starting from the same Qwen2.5-VL-3B SFT checkpoint, the comparison matches student rollout and policy-update counts. On 6,019 examples from 150 held-out nuScenes scenes, FIRE-VLA retains comparable single-sample planning, reduces G=4 mean L2 from 1.848 to 1.500 m, and lowers evaluation-persistent failure prevalence from 13.03% to 11.20%. The reduction in mean error arises mainly from rare severe rollouts rather than uniform improvement across ordinary trajectories.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.11671v1" target="_blank">StellaVLA: In-Context Structured Demonstration for Generalizable Vision-Language-Action Models</a></h2>
+  <p class="card-meta">Siyu Xu, Yunke Wang, Zijian Wang et al. &nbsp;·&nbsp; 2026-08-12</p>
+  <p class="one-liner">Adapts VLA models at test-time using retrieved, automated structured demonstrations containing task plans and verbalized 3D motion.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">VLA models experience performance collapse in out-of-distribution scenarios involving novel viewpoints or objects. Standard adaptation requires costly data collection and model fine-tuning for every new environment.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">An automated pipeline converts trajectories into structured in-context demonstrations featuring task plans, sub-goals, and verbalized 3D motion. Dual-training internalizes this reasoning via a joint action-language objective, while a decoupled action-expert architecture preserves high-frequency control during inference.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">StellaVLA achieved a 0.63 VLA-Arena score, outperforming LingBot-VLA (0.22), and reached success rates of 98.8% on LIBERO and 85.1% on LIBERO-Plus.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Enables zero-shot OOD adaptation and cross-embodiment transfer from human or XR demonstrations without fine-tuning. The framework maintains real-time inference speeds while leveraging LLM-level reasoning for robot control.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.11671v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   StellaVLA: In-Context Structured Demonstration for Generalizable Vision-Language-Action Models
+Authors: Siyu Xu, Yunke Wang, Zijian Wang et al.
+ArXiv:   https://arxiv.org/abs/2608.11671v1
+Repo:   not available
+
+## What to build
+Problem:  VLA models experience performance collapse in out-of-distribution scenarios involving novel viewpoints or objects. Standard adaptation requires costly data collection and model fine-tuning for every new environment.
+Approach: An automated pipeline converts trajectories into structured in-context demonstrations featuring task plans, sub-goals, and verbalized 3D motion. Dual-training internalizes this reasoning via a joint action-language objective, while a decoupled action-expert architecture preserves high-frequency control during inference.
+Target:   StellaVLA achieved a 0.63 VLA-Arena score, outperforming LingBot-VLA (0.22), and reached success rates of 98.8% on LIBERO and 85.1% on LIBERO-Plus.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-Language-Action (VLA) models can follow instructions and manipulate objects, but their performance often collapses out of distribution (OOD), when the scene, viewpoint, or object differs from training. Adapting to each new situation typically requires collecting more data and fine-tuning. We present StellaVLA, a framework that instead adapts at test time by conditioning on a single retrieved demonstration. The key idea is to move beyond imitating what an expert did and instead convey why: an automated offline pipeline converts each raw trajectory into a structured demonstration, e.g., a task plan, sub-goal descriptions, and verbalized 3D motion, at zero human-annotation cost. Provided as in-context guidance, this structured demonstration lets the policy reason about the task rather than mimic a pixel trajectory, which also makes it transferable across embodiments (real-robot, human-hand, or XR demonstrations). A parallel dual-training design internalizes this reasoning during training through a joint action-and-language objective, while inference uses the action expert alone, preserving real-time, high-frequency control with no added latency. On the VLA-Arena leaderboard(Aug 1, 2026), StellaVLA ranks first with an overall score of 0.63, versus 0.44 and 0.22 for the strong prior models ($π_{0.5}$ and LingBot-VLA), and it further leads on LIBERO with 98.8% average success rate and LIBERO-Plus with 85.1% success rate. Our real-robot benchmark demonstrates that StellaVLA can use both human/robot demos and human-to-robot (XR) demos as in-context structured demonstration to help VLA model adapt to OOD tasks.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.10824v1" target="_blank">Neural Introspection Gating for Adaptive KV-Cache Reuse in Vision-Language-Action Models</a></h2>
+  <p class="card-meta">Zhijie Wu, Kento Kawaharazuka, Kei Okada &nbsp;·&nbsp; 2026-08-11</p>
+  <p class="one-liner">A training-free gating mechanism for VLA KV-cache reuse using logit margins to trigger recomputation during low-confidence states.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Existing VLA KV-cache reuse methods rely on observation-space heuristics that ignore model uncertainty, causing accuracy drops in dynamic tasks.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Gated VLA-Cache monitors the logit margin between the top two action tokens as a zero-cost confidence signal. It triggers full visual recomputation whenever this margin falls below a threshold, overriding the similarity-based cache reuse.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">On LIBERO-Goal and LIBERO-Long, it recovered 100% of accuracy lost by blind caching while maintaining 80% of compute savings.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a robust way to optimize VLA inference latency for real-time control without sacrificing performance in high-uncertainty scenarios.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.10824v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   Neural Introspection Gating for Adaptive KV-Cache Reuse in Vision-Language-Action Models
+Authors: Zhijie Wu, Kento Kawaharazuka, Kei Okada
+ArXiv:   https://arxiv.org/abs/2608.10824v1
+Repo:   not available
+
+## What to build
+Problem:  Existing VLA KV-cache reuse methods rely on observation-space heuristics that ignore model uncertainty, causing accuracy drops in dynamic tasks.
+Approach: Gated VLA-Cache monitors the logit margin between the top two action tokens as a zero-cost confidence signal. It triggers full visual recomputation whenever this margin falls below a threshold, overriding the similarity-based cache reuse.
+Target:   On LIBERO-Goal and LIBERO-Long, it recovered 100% of accuracy lost by blind caching while maintaining 80% of compute savings.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-Language-Action(VLA) models map camera images and language instructions directly to motor commands through a single autoregressive transformer. In real-time control, they still spend substantial compute recomputing key-value(KV) representations for visual tokens that barely change across neighboring frames. Recent work such as VLA-Cache reduces that cost by reusing KV states for visually static patches, but its policy relies only on observation-space heuristics and does not account for the model&#x27;s own uncertainty. We propose Gated VLA-Cache, a lightweight, training-free extension that augments visual-similarity caching with neural introspection. The method monitors the logit margin between the top two predicted action tokens, a zero-cost confidence signal available during decoding. When the margin drops below a threshold, the cache is invalidated and a full recompute is triggered. Evaluated on four LIBERO benchmark suites with both OpenVLA and OpenVLA-OFT, Gated VLA-Cache improves reliability when blind caching hurts. On LIBERO-Goal and LIBERO-Long, it recovers over 100% of the lost accuracy while retaining 80% of the compute savings.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.09771v1" target="_blank">SLIM-0.5B: Learning Action-Grounded Predictive Latents for Robot Manipulation</a></h2>
+  <p class="card-meta">Jingkai Wang, Zihan Tang, Gu Zhang et al. &nbsp;·&nbsp; 2026-08-10</p>
+  <p class="one-liner">A 0.5B-parameter policy learning action-grounded predictive latents via masked trajectory prediction and flow matching for efficient manipulation.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Large VLAs waste capacity on task-irrelevant semantics, while pixel-level world models incur high costs by predicting unnecessary visual details. This results in excessive memory usage and inference latency.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Uses a Mixture-of-Transformers backbone to model observation-action interactions through self-supervised masked trajectory prediction. Learns action-grounded latents by combining action reconstruction with future-latent prediction and utilizes flow matching for policy generation.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Matches or exceeds larger VLA and world-action model baselines while reducing parameter count, GPU memory usage, and inference latency.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a blueprint for training efficient, high-performance robot policies that prioritize predictive dynamics over massive semantic backbones or pixel-level reconstruction.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.09771v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   SLIM-0.5B: Learning Action-Grounded Predictive Latents for Robot Manipulation
+Authors: Jingkai Wang, Zihan Tang, Gu Zhang et al.
+ArXiv:   https://arxiv.org/abs/2608.09771v1
+Repo:   not available
+
+## What to build
+Problem:  Large VLAs waste capacity on task-irrelevant semantics, while pixel-level world models incur high costs by predicting unnecessary visual details. This results in excessive memory usage and inference latency.
+Approach: Uses a Mixture-of-Transformers backbone to model observation-action interactions through self-supervised masked trajectory prediction. Learns action-grounded latents by combining action reconstruction with future-latent prediction and utilizes flow matching for policy generation.
+Target:   Matches or exceeds larger VLA and world-action model baselines while reducing parameter count, GPU memory usage, and inference latency.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-language-action policies rely on large multimodal backbones to jointly perform perception, language conditioning, and action generation at every control step. Much of this capacity supports open-domain semantics, whereas continuous robot manipulation primarily requires compact representations of observations, actions, and the transitions induced by actions. Pixel-level world models provide another route, but predicting visual details irrelevant to control can be unnecessarily expensive. We propose SLIM (Self-supervised Latent Interaction Model), a compact 0.5B-parameter latent interaction policy. SLIM learns action-grounded predictive latents that capture both action-conditioned future transitions and the actions that explain observed changes. SLIM learns these representations through self-supervised masked trajectory prediction, combining action reconstruction with future-latent prediction. A compact Mixture-of-Transformers (MoT) backbone models interactions between observation latents and action tokens. The resulting policy is trained with flow matching for language-conditioned action generation. Across simulation benchmarks and real-world evaluation, SLIM matches or exceeds representative large-scale VLA and world-action-model baselines with fewer parameters, no additional embodied pretraining, lower inference latency, and substantially lower GPU memory usage.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.09381v1" target="_blank">JEPA-WAM: Learning Vision-Language-Action Policies with Joint-Embedding World Modeling</a></h2>
+  <p class="card-meta">Yihan Lin, Jiawei He, Shifeng Bao et al. &nbsp;·&nbsp; 2026-08-10</p>
+  <p class="one-liner">Couples latent transition prediction with continuous action generation using a shared predictor in a V-JEPA space.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Video-generative world models are computationally expensive, while existing latent models often decouple transition prediction from action generation.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Integrates transition forecasting and action generation through a shared predictor within a pretrained V-JEPA backbone. It predicts spatially structured targets to capture temporal dependencies while preserving dense patch-level correspondences.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Achieved 79.2% on LIBERO-Plus from scratch and 86.3% when integrated with pretrained VLA policies, the current benchmark best.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Offers a computationally efficient method to incorporate world-modeling dynamics into VLAs without the overhead of pixel-level video generation.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.09381v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   JEPA-WAM: Learning Vision-Language-Action Policies with Joint-Embedding World Modeling
+Authors: Yihan Lin, Jiawei He, Shifeng Bao et al.
+ArXiv:   https://arxiv.org/abs/2608.09381v1
+Repo:   not available
+
+## What to build
+Problem:  Video-generative world models are computationally expensive, while existing latent models often decouple transition prediction from action generation.
+Approach: Integrates transition forecasting and action generation through a shared predictor within a pretrained V-JEPA backbone. It predicts spatially structured targets to capture temporal dependencies while preserving dense patch-level correspondences.
+Target:   Achieved 79.2% on LIBERO-Plus from scratch and 86.3% when integrated with pretrained VLA policies, the current benchmark best.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Robust robot control benefits from explicitly modeling state transitions, but video-generation world action models (WAMs) introduce substantial deployment cost. Existing latent WAMs avoid explicit future generation, but often compress predictive representations or separate predictive modeling from the representations used for action generation. We introduce JEPA-WAM, a latent WAM built in a pretrained V-JEPA space, which couples latent transition prediction with continuous action generation through a shared predictor. JEPA-WAM predicts a spatially structured joint current-future target that captures task-shared visual temporal structure between current and future observations, while preserving dense patch-level correspondence. Through the shared predictor, transition supervision directly shapes the backbone, from which dedicated representations are extracted for action prediction. The same design can also be instantiated in pretrained VLA policies while preserving their original perception and action pathways. On LIBERO-Plus, JEPA-WAM achieves 79.2%, the best result without large-scale robot-policy pretraining, while its pretrained $π_{0.5}$ instantiation reaches 86.3%, achieving the best overall performance. Experiments on RoboTwin 2.0 and real-world bimanual manipulation further demonstrate strong generalization under visual and spatial shifts.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.14379v1" target="_blank">Reflex: Enabling Fast and Predictive Vision-Language-Action Models for Reaction-Critical Manipulation</a></h2>
+  <p class="card-meta">Yuxuan Chen, Wanruo Zhang, Xiao Li &nbsp;·&nbsp; 2026-08-14</p>
+  <p class="one-liner">ReflexBench evaluates dynamic manipulation while ReflexVLA optimizes reaction-critical control through future prediction and low-latency deployment techniques.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Current VLA benchmarks focus on static tasks, ignoring the high-frequency temporal reasoning and low-latency requirements needed for dynamic robot interactions.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">ReflexVLA employs multi-frame temporal fusion and latent future prediction for proactive control. It reduces inference overhead using batched visual encoding and CUDA Graph replay within an asynchronous control framework.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">ReflexVLA significantly improves performance across six dynamic tasks in ReflexBench and demonstrates robust success rates in latency-constrained real-world deployments.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a specialized framework and optimization techniques for engineers building VLAs intended for high-speed, non-static, and time-sensitive robotic manipulation.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.14379v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   Reflex: Enabling Fast and Predictive Vision-Language-Action Models for Reaction-Critical Manipulation
+Authors: Yuxuan Chen, Wanruo Zhang, Xiao Li
+ArXiv:   https://arxiv.org/abs/2608.14379v1
+Repo:   not available
+
+## What to build
+Problem:  Current VLA benchmarks focus on static tasks, ignoring the high-frequency temporal reasoning and low-latency requirements needed for dynamic robot interactions.
+Approach: ReflexVLA employs multi-frame temporal fusion and latent future prediction for proactive control. It reduces inference overhead using batched visual encoding and CUDA Graph replay within an asynchronous control framework.
+Target:   ReflexVLA significantly improves performance across six dynamic tasks in ReflexBench and demonstrates robust success rates in latency-constrained real-world deployments.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-Language-Action (VLA) models have recently achieved promising performance in robotic manipulation. However, existing benchmarks mainly evaluate generalization on static manipulation tasks and largely overlook dynamic interaction scenarios. To address this gap, we present ReflexBench, a benchmark for reaction-critical manipulation. ReflexBench contains six dynamic tasks and introduces an evaluation framework that decouples simulator stepping from robot control while supporting configurable latency under synchronous and asynchronous inference. Building upon ReflexBench, we propose ReflexVLA, an efficient VLA model designed for reaction-critical manipulation without large-scale robot-data pretraining. ReflexVLA enhances temporal reasoning through latent future prediction and multi-frame temporal fusion within the vision backbone, while reducing deployment latency through batched visual encoding and CUDA Graph replay. Experiments show that ReflexVLA consistently improves dynamic manipulation performance while maintaining competitive accuracy on standard static manipulation benchmarks, and real-world experiments further demonstrate its effectiveness under practical deployment conditions. Project website: https://reflexvla.github.io">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.14047v1" target="_blank">Evolve Vision-Language-Action Model into an Agent with On-the-fly Tool-use</a></h2>
+  <p class="card-meta">Yi Ding, Yanzhao Yu, Xili Dai et al. &nbsp;·&nbsp; 2026-08-14</p>
+  <p class="one-liner">ART integrates modular tool-use into VLA models to simplify action spaces and enhance generalization with minimal training data.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">End-to-end VLA models suffer from high action-space complexity and extreme data dependency, limiting robustness in novel or low-light environments.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">The framework tunes VLA models to invoke modular off-the-shelf tools for vision, affordance, and embodiment during reasoning. It utilizes a 30K trajectory dataset to train long-horizon task execution through tool-based decomposition.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">ART achieved a 20% higher success rate than mainstream baselines in simulation and real-world pick-and-place tasks under challenging conditions.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Decoupling complex perception and control into specialized tools allows for data-efficient training and scalable integration of new capabilities into VLA agents.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.14047v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   Evolve Vision-Language-Action Model into an Agent with On-the-fly Tool-use
+Authors: Yi Ding, Yanzhao Yu, Xili Dai et al.
+ArXiv:   https://arxiv.org/abs/2608.14047v1
+Repo:   not available
+
+## What to build
+Problem:  End-to-end VLA models suffer from high action-space complexity and extreme data dependency, limiting robustness in novel or low-light environments.
+Approach: The framework tunes VLA models to invoke modular off-the-shelf tools for vision, affordance, and embodiment during reasoning. It utilizes a 30K trajectory dataset to train long-horizon task execution through tool-based decomposition.
+Target:   ART achieved a 20% higher success rate than mainstream baselines in simulation and real-world pick-and-place tasks under challenging conditions.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+This paper integrates end-to-end Visual-Language-Action (VLA) models with agentic tool-use to propose Agentic Robot with Tool-use (ART). ART is a tool-injection framework that tunes any VLA model to leverage off-the-shelf tool modules for low-level vision, high-level affordance, and embodiment enhancement. Compared to vanilla VLA models with a whole continuous action solution space, ART reduces the complexity of the action solution space through tool-use, which not only improves generalizability across different tasks but also reduces data dependency. To demonstrate the advantages (high generalizability and low data dependency) of this framework, we first built a dataset of 30K tool-use trajectories and action demonstrations, which is much smaller than those used by baseline methods. We then designed a training regimen for long-trajectory tool-use reasoning in challenging environments. Experiments show that ART achieves a 20% higher success rate than mainstream baselines on simulation and real-world tasks, such as pick-and-place in the dark at novel viewpoints. Empirical results highlight the benefits of an agent-based approach: modular tool utilization enables more efficient training, lightweight deployment, and scalable integration of new tools. This design fosters robustness, adaptability, and extensibility, paving the way for the practical deployment of VLA systems in complex real-world scenarios.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.13026v1" target="_blank">Temporal GRPO: Beyond Trajectory-Level Credit in Vision-Language-Action Reinforcement Learning</a></h2>
+  <p class="card-meta">Yao Zhou, Hang Gao, Fengge Wu et al. &nbsp;·&nbsp; 2026-08-13</p>
+  <p class="one-liner">Decomposes GRPO advantages into stage-specific credits to prevent trajectory-level credit aliasing in VLA reinforcement learning.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Standard GRPO applies a single rollout-level reward to all actions, penalizing successful early-stage progress if a later stage fails. This credit aliasing hinders learning efficiency in long-horizon robotic tasks with sparse feedback.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">The method segments trajectories into detectable task stages and computes relative advantages only between rollouts reaching the same stage. These localized advantages are then mapped to corresponding action intervals for a single policy update.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Demonstrates improved task success and sample efficiency on RoboTwin 2.0 and LIBERO-Long by isolating credit to specific points of failure.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Enables more effective RL post-training for VLAs on multi-step manipulation tasks where global trajectory-level rewards are too coarse for fine-grained credit assignment.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.13026v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   Temporal GRPO: Beyond Trajectory-Level Credit in Vision-Language-Action Reinforcement Learning
+Authors: Yao Zhou, Hang Gao, Fengge Wu et al.
+ArXiv:   https://arxiv.org/abs/2608.13026v1
+Repo:   not available
+
+## What to build
+Problem:  Standard GRPO applies a single rollout-level reward to all actions, penalizing successful early-stage progress if a later stage fails. This credit aliasing hinders learning efficiency in long-horizon robotic tasks with sparse feedback.
+Approach: The method segments trajectories into detectable task stages and computes relative advantages only between rollouts reaching the same stage. These localized advantages are then mapped to corresponding action intervals for a single policy update.
+Target:   Demonstrates improved task success and sample efficiency on RoboTwin 2.0 and LIBERO-Long by isolating credit to specific points of failure.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Outcome-driven reinforcement learning offers a scalable way to post-train vision-language-action (VLA) policies from sparse task-success feedback. In common GRPO-based VLA post-training, one rollout-level advantage is applied to every action in the trajectory. A rollout that completes several valid stages but fails later can therefore penalize the actions that produced its earlier progress. We call this trajectory-level credit aliasing. Temporal GRPO addresses this problem by constructing detectable task stages, aligning each rollout with stage-specific action intervals, and comparing only rollouts that have entered the same stage. The resulting stage advantages are applied to their corresponding intervals in a single policy update. On RoboTwin 2.0, Temporal GRPO improves task success and sample efficiency, with consistent gains across task horizons. Controlled updates on LIBERO-Long preserve shared prerequisite stages and concentrate improvement at the first stage where rollout outcomes diverge.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.11204v1" target="_blank">Surgical WAM: A World-Action Model for Data-Efficient Surgical Robot Learning</a></h2>
+  <p class="card-meta">Wenrui Bao, Tianyun Jiang, Zhiben Chen et al. &nbsp;·&nbsp; 2026-08-11</p>
+  <p class="one-liner">Unified generative world-action model leveraging action-free video pretraining to enhance data-efficient surgical robot control policies.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Surgical robot learning is bottlenecked by the scarcity of action-labeled demonstrations and the difficulty of leveraging abundant action-free video for control.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Surgical WAM, built on Cosmos Policy, jointly predicts future observations and action chunks. It pretrains on action-free video to learn visual dynamics and fine-tunes on limited labeled data to perform receding-horizon control.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Average success rate across four tasks increased from 63.5% to 77.8%, including a 20% improvement in contact-rich bimanual PegTransfer.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Validates using video-only pretraining as a transferable visual dynamics prior for VLA models, enabling scaling when kinesthetic demonstrations are limited.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.11204v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   Surgical WAM: A World-Action Model for Data-Efficient Surgical Robot Learning
+Authors: Wenrui Bao, Tianyun Jiang, Zhiben Chen et al.
+ArXiv:   https://arxiv.org/abs/2608.11204v1
+Repo:   not available
+
+## What to build
+Problem:  Surgical robot learning is bottlenecked by the scarcity of action-labeled demonstrations and the difficulty of leveraging abundant action-free video for control.
+Approach: Surgical WAM, built on Cosmos Policy, jointly predicts future observations and action chunks. It pretrains on action-free video to learn visual dynamics and fine-tunes on limited labeled data to perform receding-horizon control.
+Target:   Average success rate across four tasks increased from 63.5% to 77.8%, including a 20% improvement in contact-rich bimanual PegTransfer.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Learning reliable surgical manipulation policies is bottlenecked by the scarcity of action-labeled demonstrations: teleoperated surgical robot (e.g., dVRK) trajectories with synchronized kinematics are costly to collect, while surgical tasks demand precise contact handling, long-horizon reasoning, and bimanual coordination. Endoscopic video is comparatively inexpensive and abundant relative to synchronized video--kinematics trajectories, and a natural way to exploit it is to learn world models of surgical scenes. However, existing surgical world models use video primarily for simulation or policy evaluation, and rarely translate the learned dynamics into closed-loop control. This gap raises our central question: under a fixed budget of action-labeled demonstrations, does action-free video pretraining improve closed-loop surgical manipulation? To answer it, we introduce the Surgical World-Action Model (Surgical WAM), a unified generative model built on Cosmos Policy that jointly predicts future endoscopic observations and executable surgical robot action chunks. Surgical WAM first learns surgical visual dynamics from action-free video and is then fine-tuned on the fixed action-labeled budget; at deployment, it acts as a closed-loop, receding-horizon controller that executes a short prefix of each predicted action chunk and replans from the resulting observation. On a suite of four simulated surgical manipulation tasks, video pretraining improves the average success rate from 63.5% to 77.8%, including an absolute gain of 20 percentage points on PegTransfer, with the largest improvements on contact-rich and bimanual tasks. These results demonstrate that action-free video provides transferable visual dynamics priors for learning surgical robot control with limited action supervision, positioning data-efficient video pretraining as a practical path toward scaling up surgical robot learning.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.AI</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.10976v1" target="_blank">XCoT-VLA: Executable Chain-of-Thought for Vision-Language-Action Driving</a></h2>
+  <p class="card-meta">Foundation Model Team, XPeng Inc &nbsp;·&nbsp; 2026-08-11</p>
+  <p class="one-liner">Replaces verbose CoT with compact executable tokens for efficient, reasoning-conditioned trajectory generation in autonomous driving VLA models.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Natural-language Chain-of-Thought is too computationally expensive for real-time control and lacks an efficient optimization path for action-facing representations. Its open-ended nature makes it difficult to ground high-level reasoning into precise trajectories.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Integrates 2-6 compact executable tokens that condition flow-matching trajectory generation through shared multimodal self-attention and deterministic FFN routing. These tokens are learned from Reason-Action supervision and can be further refined using XCoT Policy Optimization (XCPO).</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Reduced longitudinal ADE from 1.645 to 1.323 and lateral lane-change FDE from 1.616 to 0.648, while maintaining real-time planning speeds.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a framework for integrating reasoning into VLA models without the latency penalties of natural language decoding, crucial for high-frequency robotic control.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.10976v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   XCoT-VLA: Executable Chain-of-Thought for Vision-Language-Action Driving
+Authors: Foundation Model Team, XPeng Inc
+ArXiv:   https://arxiv.org/abs/2608.10976v1
+Repo:   not available
+
+## What to build
+Problem:  Natural-language Chain-of-Thought is too computationally expensive for real-time control and lacks an efficient optimization path for action-facing representations. Its open-ended nature makes it difficult to ground high-level reasoning into precise trajectories.
+Approach: Integrates 2-6 compact executable tokens that condition flow-matching trajectory generation through shared multimodal self-attention and deterministic FFN routing. These tokens are learned from Reason-Action supervision and can be further refined using XCoT Policy Optimization (XCPO).
+Target:   Reduced longitudinal ADE from 1.645 to 1.323 and lateral lane-change FDE from 1.616 to 0.648, while maintaining real-time planning speeds.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-Language-Action (VLA) models can connect scene understanding, semantic reasoning, and trajectory generation for autonomous driving. However, verbose natural-language Chain-of-Thought (CoT) is poorly suited to real-time control because it is open-ended, costly to decode, and difficult to optimize as an action-facing representation. We propose XCoT-VLA, which replaces descriptive rationales with compact executable CoT tokens learned from automatically constructed Reason-Action supervision. Logged trajectories provide action evidence, while scene context supplies causal semantics. The predicted XCoT sequence remains in context and conditions fixed trajectory queries through shared multimodal self-attention. Deterministic token-function routing applies the Reason FFN to XCoT tokens and the Control FFN to trajectory queries for flow-matching trajectory generation. We further introduce XCoT Policy Optimization (XCPO) as an optional refinement extension in the same executable token space. XCoT-VLA reduces longitudinal ADE from 1.645 to 1.323 on a general-distribution set and lateral FDE from 1.616 to 0.648 in lane-change scenarios. By representing driving-oriented reasoning with only 2-6 executable XCoT tokens, our method substantially reduces autoregressive reasoning overhead and remains within the real-time planning budget. These results demonstrate that driving-oriented reasoning can be compact, executable, and directly connected to trajectory generation.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2608.10484v1" target="_blank">Lost in Reconstruction: Aligning Action Representations with Language in Vision-Language-Action Models</a></h2>
+  <p class="card-meta">Li Wenjie, Yash Jangir, Ignacy Stepka et al. &nbsp;·&nbsp; 2026-08-11</p>
+  <p class="one-liner">SALT aligns action tokenization with instructions using an auxiliary VLM objective to improve language-conditioned robot policy performance.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Standard VLA action tokenization relies on reconstruction losses that ignore linguistically meaningful motion nuances, leading to semantic information loss.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">SALT augments a VQ-VAE with an auxiliary objective forcing a frozen VLM to recover task instructions from quantized action latents. This ensures discrete action codes capture both execution fidelity and the semantic intent of the verb.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">SALT achieved 71.9% success in SimplerEnv, outperforming reconstruction-only VQ-VAE at 42.7% and FAST at 31.2% while maintaining high trajectory reconstruction quality.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a method to bridge the gap between low-level robot control and high-level language by embedding semantic structure directly into the action representation.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2608.10484v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   Lost in Reconstruction: Aligning Action Representations with Language in Vision-Language-Action Models
+Authors: Li Wenjie, Yash Jangir, Ignacy Stepka et al.
+ArXiv:   https://arxiv.org/abs/2608.10484v1
+Repo:   not available
+
+## What to build
+Problem:  Standard VLA action tokenization relies on reconstruction losses that ignore linguistically meaningful motion nuances, leading to semantic information loss.
+Approach: SALT augments a VQ-VAE with an auxiliary objective forcing a frozen VLM to recover task instructions from quantized action latents. This ensures discrete action codes capture both execution fidelity and the semantic intent of the verb.
+Target:   SALT achieved 71.9% success in SimplerEnv, outperforming reconstruction-only VQ-VAE at 42.7% and FAST at 31.2% while maintaining high trajectory reconstruction quality.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Action verbs describe not only the physical outcomes of actions, but also how those actions are performed. Yet action representations in vision-language-action models (VLAs) are typically optimized for reconstruction under L1/L2 losses in raw action space, where numerical proximity need not reflect linguistically meaningful distinctions. On BridgeV2, we show that action trajectories contain verb-grounding information beyond visual state changes, and that reconstruction-only discrete tokenization systematically erodes this information. To address this problem, we introduce SALT, a Semantically ALigned action Tokenizer that augments a VQ-VAE-style tokenizer with an auxiliary objective requiring a frozen vision-language model to recover the episode instruction from quantized action latents. Policies trained with SALT achieve 71.9% average success in SimplerEnv, compared with 42.7% for a reconstruction-only VQ-VAE tokenizer and 31.2% for FAST. SALT also develops verb-specialized codes while maintaining reconstruction fidelity. These results show that robot action trajectories provide a source of language grounding and that preserving this structure in action representations can substantially improve language-conditioned control.">🤖 POC</button></div>
+</div>
+  </div>
+</main>
+<footer>
+  <div class="container">
+    <a href="../index.html">&#8592; All digests</a>
+    <span>Curated from ArXiv &amp; Papers With Code &nbsp;·&nbsp; Summarized with Gemini Flash</span>
+  </div>
+</footer>
+<script>
+function copyPOC(btn) {
+  navigator.clipboard.writeText(btn.dataset.prompt).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 1800);
+  });
+}
+</script>
+</body>
+</html>
