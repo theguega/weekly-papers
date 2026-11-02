@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Papers · Oct 26 – Nov 2, 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #f0f2f5;
+  color: #1e293b;
+  line-height: 1.65;
+  font-size: 15px;
+}
+
+a { color: inherit; }
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Header ── */
+header {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 52px 0 44px;
+  margin-bottom: 44px;
+}
+.logo {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7c6af7;
+  margin-bottom: 14px;
+}
+header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.subtitle {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+.stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.stat {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(124, 106, 247, 0.15);
+  color: #a89cf7;
+}
+
+/* ── Paper cards ── */
+.papers {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 64px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  border-left: 4px solid #c7d2fe;
+  padding: 26px 28px 22px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
+.card.has-code { border-left-color: #34d399; }
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+}
+.badge-code { background: #d1fae5; color: #065f46; }
+.badge-cat  { background: #ede9fe; color: #5b21b6; }
+
+.card-title {
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  margin-bottom: 5px;
+}
+.card-title a {
+  text-decoration: none;
+  color: #0f172a;
+}
+.card-title a:hover { color: #4f46e5; }
+
+.card-meta {
+  font-size: 12.5px;
+  color: #94a3b8;
+  margin-bottom: 18px;
+}
+
+.one-liner {
+  font-size: 14px;
+  font-style: italic;
+  color: #475569;
+  border-left: 3px solid #e0e7ff;
+  padding-left: 14px;
+  margin-bottom: 22px;
+  line-height: 1.55;
+}
+
+/* ── 4-section summary grid ── */
+.sections {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 12px;
+  margin-bottom: 22px;
+  align-items: start;
+}
+.sec-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-top: 3px;
+  white-space: nowrap;
+}
+.lbl-problem   { color: #dc2626; }
+.lbl-approach  { color: #2563eb; }
+.lbl-result    { color: #7c3aed; }
+.lbl-relevance { color: #059669; }
+.sec-content {
+  font-size: 13.5px;
+  color: #334155;
+  line-height: 1.6;
+}
+
+/* ── Links ── */
+.card-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn {
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-arxiv { background: #f1f5f9; color: #475569; }
+.btn-arxiv:hover { background: #e2e8f0; color: #1e293b; }
+.btn-code  { background: #d1fae5; color: #065f46; }
+.btn-code:hover { background: #a7f3d0; }
+.btn-poc   { background: #fef3c7; color: #92400e; border: none; cursor: pointer; font-family: inherit; }
+.btn-poc:hover { background: #fde68a; }
+.btn-poc.copied { background: #d1fae5; color: #065f46; }
+
+/* ── Footer ── */
+footer {
+  background: #0f172a;
+  color: #64748b;
+  padding: 28px 0;
+  font-size: 13px;
+}
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+footer a { color: #94a3b8; text-decoration: none; }
+footer a:hover { color: #f8fafc; }
+
+/* ── Index page ── */
+.digest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 64px;
+}
+.digest-entry {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 18px 22px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.digest-info { display: flex; flex-direction: column; gap: 4px; }
+.digest-week { font-weight: 600; font-size: 15px; color: #0f172a; }
+.digest-meta { font-size: 13px; color: #94a3b8; }
+.btn-view {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 7px;
+  background: #ede9fe;
+  color: #4f46e5;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-view:hover { background: #ddd6fe; }
+
+@media (max-width: 600px) {
+  .sections { grid-template-columns: 1fr; }
+  .sec-label { margin-bottom: -4px; }
+  .digest-entry { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="logo">weekly-papers</div>
+    <h1>VLA &amp; Robot Learning Digest</h1>
+    <p class="subtitle">Oct 26 – Nov 2, 2026</p>
+    <div class="stats">
+      <span class="stat">12 papers</span>
+      <span class="stat">0 with code</span>
+    </div>
+  </div>
+</header>
+<main class="container">
+  <div class="papers">
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.LG</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.39451v1" target="_blank">Smooth Action Chunking Via Movement-Primitive Representations for Imitation Learning</a></h2>
+  <p class="card-meta">Shota Nomura, Takayuki Osa, Yasuhiro Kato et al. &nbsp;·&nbsp; 2026-10-29</p>
+  <p class="one-liner">Integrates movement-primitive basis functions into action chunking to ensure smooth, continuous robot trajectories without requiring policy architecture retraining.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Standard action chunking creates jerky trajectories and boundary discontinuities that cause hardware vibration and velocity limit saturation. These temporal structures are only learned implicitly, leading to poor control quality on real robots.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Replaces discrete action sequences with a linear combination of smooth basis functions to enforce trajectory smoothness by construction. Employs a closed-form inference-time correction to ensure successive chunks pass through the previous chunk's final commanded point.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Reduces within-chunk jerk by 10x for ACT and 2.4x for DiT while maintaining task success. Boundary discontinuities are reduced by 73-84% with negligible computational overhead.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Enables safer deployment of VLA and diffusion-based policies on physical hardware by eliminating mechanical instability. It provides a plug-and-play solution for any chunk-based imitation learning backbone.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.39451v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   Smooth Action Chunking Via Movement-Primitive Representations for Imitation Learning
+Authors: Shota Nomura, Takayuki Osa, Yasuhiro Kato et al.
+ArXiv:   https://arxiv.org/abs/2610.39451v1
+Repo:   not available
+
+## What to build
+Problem:  Standard action chunking creates jerky trajectories and boundary discontinuities that cause hardware vibration and velocity limit saturation. These temporal structures are only learned implicitly, leading to poor control quality on real robots.
+Approach: Replaces discrete action sequences with a linear combination of smooth basis functions to enforce trajectory smoothness by construction. Employs a closed-form inference-time correction to ensure successive chunks pass through the previous chunk&#x27;s final commanded point.
+Target:   Reduces within-chunk jerk by 10x for ACT and 2.4x for DiT while maintaining task success. Boundary discontinuities are reduced by 73-84% with negligible computational overhead.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Imitation learning has become a widely adopted approach for vision-based robot policies, owing to its conceptual simplicity, scalability, and ability to leverage large-scale datasets. As these policies have grown more capable, action chunking has become their standard interface. At each decision step the policy outputs several future actions at once. Backbones from diffusion policies to large vision-language-action models all share it. Whatever backbone produces the chunk, its temporal structure is learned only implicitly. The commanded trajectory is therefore jerky both within a chunk and between successive chunks. On real hardware this appears as visible vibration and as repeated saturation of the follower&#x27;s velocity limit. We address this issue by incorporating a movement-primitive-based trajectory representation into action chunking. Specifically, a trajectory segment is represented as a linear combination of smooth basis functions, yielding smooth trajectories by construction while leaving the policy architecture, training objective, and inference procedure unchanged. The same representation also yields a closed-form, inference-time correction for the second source of jerk. We condition the predicted coefficients so that the new chunk passes through a via-point at the previous chunk&#x27;s last commanded action. This correction needs no retraining and, unlike asynchronous Real-Time Chunking, applies to policies queried in one shot. We instantiate it on a one-shot (ACT) and an iterative (DiT) backbone and evaluate in simulation and on a real bimanual ALOHA platform. The representation lowers within-chunk jerk by an order of magnitude on the one-shot backbone and by 2.4 times on the iterative one, with task success statistically non-inferior. The conditioning then removes 73-84% of the boundary discontinuity, at negligible per-step cost.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.37381v2" target="_blank">PDRVLA: A Vision-Language-Action Model with Physical Dynamics Representations</a></h2>
+  <p class="card-meta">Hanqing Wang, Zhaotian Cai, Ruichuan An et al. &nbsp;·&nbsp; 2026-10-27</p>
+  <p class="one-liner">Integrates physical dynamics into VLA models via future-feature prediction supervised by frozen world models without real-time video generation.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Standard VLA models lack physical grounding. Current video world model integrations introduce prohibitive latency for high-frequency robotic control loops.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">A lightweight Physical Dynamics Module extracts tokens from vision-language features to predict future RGB, depth, and optical-flow. Training utilizes auxiliary supervision from frozen video world models and incorporates embodied chain-of-thought and subtask annotations.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Achieved success rates of 99.3% on LIBERO, 89.9% on LIBERO-Plus, 93.6% on RoboTwin 2.0, and 81.5% on SimplerEnv.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a computationally efficient framework for grounding robot policies in physical dynamics using world-model distillation without inference-time generation overhead.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.37381v2" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   PDRVLA: A Vision-Language-Action Model with Physical Dynamics Representations
+Authors: Hanqing Wang, Zhaotian Cai, Ruichuan An et al.
+ArXiv:   https://arxiv.org/abs/2610.37381v2
+Repo:   not available
+
+## What to build
+Problem:  Standard VLA models lack physical grounding. Current video world model integrations introduce prohibitive latency for high-frequency robotic control loops.
+Approach: A lightweight Physical Dynamics Module extracts tokens from vision-language features to predict future RGB, depth, and optical-flow. Training utilizes auxiliary supervision from frozen video world models and incorporates embodied chain-of-thought and subtask annotations.
+Target:   Achieved success rates of 99.3% on LIBERO, 89.9% on LIBERO-Plus, 93.6% on RoboTwin 2.0, and 81.5% on SimplerEnv.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision--Language--Action (VLA) models generate robot actions from visual observations and language instructions, but their understanding of physical dynamics remains limited. Video world models can capture scene dynamics, yet generating future videos introduces high latency into the control loop. We introduce PDRVLA, whose lightweight Physical Dynamics Module extracts physical tokens from vision--language features to condition action generation without online video generation. The module learns through direct prediction of future RGB, depth, and optical-flow features, with auxiliary supervision through a frozen pretrained video world model. Training relies entirely on publicly available data, expanded through human-to-robot synthesis, subtask annotation, and embodied chain-of-thought (ECoT) annotation. Across four simulation benchmarks, PDRVLA achieves success rates of 99.3% on LIBERO, 89.9% on LIBERO-Plus, 93.6% on RoboTwin~2.0, and 81.5% on SimplerEnv. Ablations show improved future prediction with world-model supervision and evaluate how subtask conditioning, future object-pose supervision, and ECoT training affect action success.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.37378v1" target="_blank">VLA-Stem: A Lightweight Safety Mechanism for Vision-Language-Action Models via Reinforcement Learning</a></h2>
+  <p class="card-meta">Bojun Zou, Wenhao Yu, Jiaohao Li et al. &nbsp;·&nbsp; 2026-10-27</p>
+  <p class="one-liner">Lightweight RL safety mechanism adapting VLA action chunks for dynamic obstacle avoidance without fine-tuning the underlying model.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">VLA models ignore spatial constraints and dynamic obstacles, while fine-tuning for safety is computationally expensive and degrades original task performance.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Treats VLA output as trajectory references for a separate RL Stem policy. This policy uses curriculum learning and teacher-student distillation to adapt execution based on proprioception and local obstacle data.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Achieved 52.8% average collision-free success rate compared to 23.7% for the strongest baseline while maintaining performance in obstacle-free scenarios.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a modular way to add reactive safety to frozen VLAs, enabling deployment in dynamic environments without retraining the entire transformer architecture.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.37378v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   VLA-Stem: A Lightweight Safety Mechanism for Vision-Language-Action Models via Reinforcement Learning
+Authors: Bojun Zou, Wenhao Yu, Jiaohao Li et al.
+ArXiv:   https://arxiv.org/abs/2610.37378v1
+Repo:   not available
+
+## What to build
+Problem:  VLA models ignore spatial constraints and dynamic obstacles, while fine-tuning for safety is computationally expensive and degrades original task performance.
+Approach: Treats VLA output as trajectory references for a separate RL Stem policy. This policy uses curriculum learning and teacher-student distillation to adapt execution based on proprioception and local obstacle data.
+Target:   Achieved 52.8% average collision-free success rate compared to 23.7% for the strongest baseline while maintaining performance in obstacle-free scenarios.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-Language-Action (VLA) models integrate high-level reasoning with low-level action execution for end-to-end robotic control. However, most VLA models target static manipulation in unconstrained environments, overlooking spatial constraints and dynamic obstacles. Fine-tuning VLAs on obstacle-avoidance data is a straightforward solution, but collecting such data is costly, especially for dynamic scenarios, and may degrade their original task capabilities. To address these limitations, we propose VLA-Stem, a lightweight, reinforcement-learning-based safety mechanism for VLA systems. Without fine-tuning the underlying VLA policy, VLA-Stem converts its action chunks into motion references and uses trajectory-level guidance to preserve their spatial intent while allowing flexible motion and timing adjustments. Conditioned on these references, robot proprioception, and local obstacle information, the Stem policy adaptively modifies execution at inference time, preserving the original task intent while enabling responsive adaptation to spatial constraints and dynamic obstacles. For robust and sample-efficient training, we combine teacher-student distillation with curriculum learning. We evaluate VLA-Stem on reference following, static spatial constraints, and dynamic obstacle avoidance. Across six constrained simulation settings, VLA-Stem achieves 52.8% average collision-free task success versus 23.7% for the strongest safety baseline, while preserving base-policy performance in obstacle-free settings; real-world experiments further show consistent collision reductions under static and dynamic obstacles. These results demonstrate that VLA-Stem couples high-level VLA task intent with rapid, reflex-like responses to immediate physical risks, providing a brainstem-inspired mechanism for robust robot execution.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.37170v1" target="_blank">From 12 to 200 Demonstrations: How ACT, Diffusion Policy, SmolVLA and $π_{0.5}$ Scale on a Low-Cost Arm</a></h2>
+  <p class="card-meta">Simon Cowling &nbsp;·&nbsp; 2026-10-27</p>
+  <p class="one-liner">Benchmarks ACT, Diffusion Policy, SmolVLA, and π0.5 scaling performance from 12 to 200 demonstrations on low-cost hardware.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Determining the data-efficiency and performance scaling of modern imitation learning and VLA policies on budget robotic hardware. Specifically addresses the lack of comparative scaling data between scratch-trained and fine-tuned models.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Tests four policies across nested subsets of 12 to 200 demonstrations on a pick-and-place task with distractors. Compares LoRA against action-expert fine-tuning and decomposes failures into a four-stage execution ladder.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">ACT scales best to 92.5% success at 100 demonstrations, whereas π0.5 leads in low-data regimes (40% at 12). SmolVLA and Diffusion Policy underperformed due to 'failure to start' errors and sensitivity to demonstration idle time.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides empirical evidence that fine-tuning strategy (action-expert vs. LoRA) and dataset cleaning (lead-in trimming) are as critical as model architecture for VLA deployment.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.37170v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   From 12 to 200 Demonstrations: How ACT, Diffusion Policy, SmolVLA and $π_{0.5}$ Scale on a Low-Cost Arm
+Authors: Simon Cowling
+ArXiv:   https://arxiv.org/abs/2610.37170v1
+Repo:   not available
+
+## What to build
+Problem:  Determining the data-efficiency and performance scaling of modern imitation learning and VLA policies on budget robotic hardware. Specifically addresses the lack of comparative scaling data between scratch-trained and fine-tuned models.
+Approach: Tests four policies across nested subsets of 12 to 200 demonstrations on a pick-and-place task with distractors. Compares LoRA against action-expert fine-tuning and decomposes failures into a four-stage execution ladder.
+Target:   ACT scales best to 92.5% success at 100 demonstrations, whereas π0.5 leads in low-data regimes (40% at 12). SmolVLA and Diffusion Policy underperformed due to &#x27;failure to start&#x27; errors and sensitivity to demonstration idle time.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+We trained four widely used imitation-learning policies, ACT, Diffusion Policy, SmolVLA and $π_{0.5}$, on nested subsets of 12, 25, 50, 100 and 200 teleoperated demonstrations of one pick-and-place task with distractor objects, using one fixed training recipe per policy. Every trained model was then run on a physical SO-101 arm on a fixed set of object placements: 1,340 scored episodes in 126 blocks.   ACT, trained from scratch, rose from 1 success in 40 episodes at 12 demonstrations to 37 in 40 at 100. $π_{0.5}$ with its action expert fine-tuned was the best policy when data was scarce (16 of 40 at 12 demonstrations, 28 of 40 at 25) and then stayed near 70%; from 100 demonstrations ACT was ahead, by a margin this study does not fully resolve. SmolVLA and Diffusion Policy peaked near 50%, and both were affected by a failure to start: SmolVLA&#x27;s arm never started moving in 47% of episodes, and Diffusion Policy hardly ever started until an idle lead-in was trimmed from the demonstrations. For $π_{0.5}$ the fine-tuning recipe mattered more than the amount of data: low-rank adaptation succeeded in 4 of 110 episodes, against 130 of 200 for action-expert fine-tuning.   From the joint and camera recordings we place every episode on a four-stage ladder (started, reached the ball, carried it, delivered it) and show that for ACT more data moves failures from reaching, to grasping, to none, while the failures $π_{0.5}$ retains are in grasping. We also measure how weak a ten-episode block is as a measurement (the same checkpoint tested twice differs by 2 successes in 10 on average), separate seed-to-seed variation from that noise, and audit the human scoring against the recordings. Training length was fixed within each recipe, so the amount of data and the number of times it was seen change together; we state which conclusions survive that confound and which do not.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.35010v1" target="_blank">JevVLA: Jev-Inspired Energy-Based Adaptation for Vision-Language-Action Policies</a></h2>
+  <p class="card-meta">Wei Wang, Wenqiao Zhang, Zheqi Lv et al. &nbsp;·&nbsp; 2026-10-26</p>
+  <p class="one-liner">A lightweight energy-based adaptation framework that unifies discrete selection and continuous action guidance for frozen VLA policies.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Adapting pretrained VLAs to improve both discrete candidate selection and continuous motion control using a single, shared mechanism. Most current methods handle these modalities separately or require extensive fine-tuning of the entire base policy.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">A differentiable scalar energy function is learned on top of frozen VLA representations using execution feedback or demonstrations. This energy model ranks discrete candidates and uses action gradients to iteratively refine continuous action chunks.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Success rates increased by 1.28 to 2.31 percentage points across MetaWorld MT50, VIMA, LanguageTable, LIBERO, and CLIPort. Gains were achieved using only 80,000 trainable parameters while maintaining the frozen base policy.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a parameter-efficient strategy to adapt large-scale VLA foundation models to downstream tasks with heterogeneous action spaces. It demonstrates how energy-based gradients can serve as a universal refinement layer for diverse robotic control tasks.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.35010v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   JevVLA: Jev-Inspired Energy-Based Adaptation for Vision-Language-Action Policies
+Authors: Wei Wang, Wenqiao Zhang, Zheqi Lv et al.
+ArXiv:   https://arxiv.org/abs/2610.35010v1
+Repo:   not available
+
+## What to build
+Problem:  Adapting pretrained VLAs to improve both discrete candidate selection and continuous motion control using a single, shared mechanism. Most current methods handle these modalities separately or require extensive fine-tuning of the entire base policy.
+Approach: A differentiable scalar energy function is learned on top of frozen VLA representations using execution feedback or demonstrations. This energy model ranks discrete candidates and uses action gradients to iteratively refine continuous action chunks.
+Target:   Success rates increased by 1.28 to 2.31 percentage points across MetaWorld MT50, VIMA, LanguageTable, LIBERO, and CLIPort. Gains were achieved using only 80,000 trainable parameters while maintaining the frozen base policy.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-language-action (VLA) policies can select among discrete candidates for pick-and-place manipulation or generate continuous action chunks for motion control. Improving both forms of decision making through a common mechanism while retaining the capabilities of a pretrained policy is an important adaptation problem. Inspired by Jev&#x27;s structured, probabilistic decision interface, we propose JevVLA, a lightweight energy-based adaptation framework for VLA policies. JevVLA instantiates this inspiration by modeling the relative quality of action proposals: with the base policy frozen, it learns a differentiable scalar energy conditioned on observations, task context, and actions, using execution feedback, expert corrections, or demonstration-derived preferences. JevVLA uses this single learned action preference function in two ways: its values compare discrete candidates, while its action gradients correct continuous actions or guide their generation. Candidate selection and continuous control thus share one trainable decision core. Each benchmark uses independently trained weights and fixed input/output encodings, while retaining the same core network with approximately 80,000 trainable parameters. On the held-out test sets, JevVLA improves task success over the respective matched base-policy controls by 1.28, 2.31, 1.60, 1.52, and 1.28 percentage points on MetaWorld MT50, VIMA, LanguageTable, LIBERO Plus, and CLIPort, respectively. These results support the feasibility of a lightweight, Jev-inspired energy model for adapting both discrete action selection and continuous action guidance. The JevVLA implementation will be open-sourced at https://github.com/ZJU4EmbodiedAI/JevVLA.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.40646v1" target="_blank">SwapBot: Tool-Centric Robot Manipulation via Interchangeable End-Effectors and Tactile Sensing</a></h2>
+  <p class="card-meta">Yunchu Zhang, Ray Song, Junhan Jiao et al. &nbsp;·&nbsp; 2026-10-29</p>
+  <p class="one-liner">Modular tool-swapping end-effector system with integrated tactile sensing for contact-rich robot manipulation and imitation learning.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Universal grippers struggle with diverse tasks requiring varying forces and precision, and existing tool-swapping systems lack tactile integration.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Utilizes a unified robot-side coupling with low-cost, tactile-enabled tool adapters to enable autonomous swapping and multimodal data collection. Policies are trained via imitation learning on synchronized RGB and tactile streams.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Tactile-augmented policies outperformed RGB-only baselines by 15-25% in success rates for contact-rich tasks like cooking and stirring.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a scalable hardware-software framework for VLA models to incorporate tool-specific tactile feedback for complex, long-horizon manipulation.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.40646v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   SwapBot: Tool-Centric Robot Manipulation via Interchangeable End-Effectors and Tactile Sensing
+Authors: Yunchu Zhang, Ray Song, Junhan Jiao et al.
+ArXiv:   https://arxiv.org/abs/2610.40646v1
+Repo:   not available
+
+## What to build
+Problem:  Universal grippers struggle with diverse tasks requiring varying forces and precision, and existing tool-swapping systems lack tactile integration.
+Approach: Utilizes a unified robot-side coupling with low-cost, tactile-enabled tool adapters to enable autonomous swapping and multimodal data collection. Policies are trained via imitation learning on synchronized RGB and tactile streams.
+Target:   Tactile-augmented policies outperformed RGB-only baselines by 15-25% in success rates for contact-rich tasks like cooking and stirring.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Robot manipulation in everyday environments inherently involves substantial tool usage. Seemingly simple household tasks, such as cooking pan-fried tofu, require forceful cutting, delicate brushing, and precise placement using different tools under contact-rich interaction. Thus, the ability to autonomously swap and use task-appropriate tools is important for tool-centric manipulation. We introduce SwapBot, a modular, tool-centric end effector system featuring low-cost adapters that quickly convert common household tools into robot end effectors. Rather than pursuing a single universal gripper, SwapBot adopts a unified design principle that combines a fixed robot-side coupling interface with low-cost, tool-side adapters, enabling compatibility with diverse tools, including articulated ones, and multiple robot platforms. Each adapter integrates compact tactile sensors, supports fast autonomous swapping, and interfaces with an intuitive teleoperation system for efficient demonstration collection. User studies show that, during teleoperation, SwapBot reduces task completion time and operator workload. Using collected demonstrations on the robot, we train imitation learning policies to successfully perform tool-centric tasks like cooking tofu, stirring salad, flipping meat. Our ablation study shows that using tactile-augmented demonstrations improves policy performance across contact-rich skills, increasing success rates by 15 to 25 percentage points over RGB-only policies. These results highlight modular, tactile-equipped tools as a practical and extensible pathway toward robust and capable robot manipulation. Project website https://personalrobotics.github.io/SwapBot.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.38199v1" target="_blank">Embodied at Sea: Imitation Learning for Multi-Task Underwater Manipulation</a></h2>
+  <p class="card-meta">Greta Perez-Haiek, Luca Macesanu, Kevin Angers et al. &nbsp;·&nbsp; 2026-10-28</p>
+  <p class="one-liner">Benchmarks VLA and ACT models for multi-task underwater manipulation using a new dataset and open-source deployment kit.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Visual distortions and dynamic currents underwater create severe domain shifts for terrestrial VLA architectures. Generalist models struggle to match specialized policy performance in complex marine field environments.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Evaluated 14 DynamicVLA configurations and compared multi-task SmolVLA against single-task ACT across 1616 training episodes. Deployment utilized the BLUEMBODIED KIT on an ROV for real-world marine archaeology and conservation tasks.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">DynamicVLA achieved a 93.3% success rate in controlled pool tests. In field deployments, single-task ACT outperformed multi-task SmolVLA with a 47.9% versus 7.9% pooled success rate.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Establishes a benchmark for VLA performance in high-noise, non-terrestrial environments and highlights scaling gaps between specialized and generalist policies. The open-source kit facilitates data collection for underwater embodied AI.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.38199v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   Embodied at Sea: Imitation Learning for Multi-Task Underwater Manipulation
+Authors: Greta Perez-Haiek, Luca Macesanu, Kevin Angers et al.
+ArXiv:   https://arxiv.org/abs/2610.38199v1
+Repo:   not available
+
+## What to build
+Problem:  Visual distortions and dynamic currents underwater create severe domain shifts for terrestrial VLA architectures. Generalist models struggle to match specialized policy performance in complex marine field environments.
+Approach: Evaluated 14 DynamicVLA configurations and compared multi-task SmolVLA against single-task ACT across 1616 training episodes. Deployment utilized the BLUEMBODIED KIT on an ROV for real-world marine archaeology and conservation tasks.
+Target:   DynamicVLA achieved a 93.3% success rate in controlled pool tests. In field deployments, single-task ACT outperformed multi-task SmolVLA with a 47.9% versus 7.9% pooled success rate.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Behavior Cloning has demonstrated promising generalization capabilities for robotic manipulation in terrestrial environments. However, marine visual distortions and dynamic currents create a severe domain shift that remains a key bottleneck in adapting generalist architectures to underwater field manipulation. To address this, 1616 episodes of underwater manipulation data were collected in calm and turbulent waters and were used to train 14 generalist Vision-Language-Action (VLA) models (DynamicVLA) with varying proprioception observation configurations. Across three tasks on 1260 gradable on-hardware rollouts in a pool, 10 models outperformed the baseline, with the highest-performing model achieving a 93.3% overall success rate, including partial successes. Results are also introduced from a case study evaluating the performance of a single-task Action Chunking Transformer (ACT) and a generalist VLA (SmolVLA) policy for two tasks in marine archaeology and conservation: grasping and mooring. Experiments are performed on an ROV on and around the WWII wreck Coralita X127 and at Manoel Island Marina, Malta. Across 748 collected episodes and 508 gradable on-hardware rollouts, the ACT policy substantially outperformed SmolVLA (47.9% vs. 7.9% pooled success rate), earning a 66.7% success rate on the most successful task at the marine archaeological site. To enable further contributions to embodied intelligence in marine field robotics, the BLUEMBODIED KIT used to collect data, train models, and deploy policies on the ROV has been open sourced.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.34519v1" target="_blank">TRIAGE: Efficient Vision-Language-Action Inference Needs Both Reuse and Pruning</a></h2>
+  <p class="card-meta">Sooyoung Kwon, Carlee Joe-Wong, Kyunghan Lee &nbsp;·&nbsp; 2026-10-25</p>
+  <p class="one-liner">Optimizes VLA inference by dynamically switching between token reuse and pruning based on measured token drift.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">High prefill latency on embedded hardware caused by processing hundreds of visual tokens at every control step.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">TRIAGE monitors token drift in shallow layers to decide between recomputation, KV-cache reuse, or pruning. It prioritizes a fixed budget for recomputing important tokens while reusing valid caches and pruning stale data.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Reduced prefill latency on Jetson AGX Orin by 48% while maintaining success rates within 3% of full recomputation.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Enables real-time deployment of large VLA models on untethered mobile robots and humanoids without requiring expensive retraining.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.34519v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   TRIAGE: Efficient Vision-Language-Action Inference Needs Both Reuse and Pruning
+Authors: Sooyoung Kwon, Carlee Joe-Wong, Kyunghan Lee
+ArXiv:   https://arxiv.org/abs/2610.34519v1
+Repo:   not available
+
+## What to build
+Problem:  High prefill latency on embedded hardware caused by processing hundreds of visual tokens at every control step.
+Approach: TRIAGE monitors token drift in shallow layers to decide between recomputation, KV-cache reuse, or pruning. It prioritizes a fixed budget for recomputing important tokens while reusing valid caches and pruning stale data.
+Target:   Reduced prefill latency on Jetson AGX Orin by 48% while maintaining success rates within 3% of full recomputation.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-language-action (VLA) models are increasingly used for robot manipulation because they map camera images and a language instruction directly to actions. Robots that cannot be tethered to a workstation, such as mobile manipulators and humanoids, must run them on onboard embedded boards, where the prefill latency of the language backbone grows with the hundreds of visual tokens processed at every control step. To meet real-time limits, training-free accelerators recompute only a subset of the visual tokens and skip the rest, either by pruning them or by reusing their cached key-value (KV) states. The two options save nearly the same computation, yet existing methods apply only one of them to every skipped token. Through a token-level diagnostic, we show that which option keeps the action closer to full recomputation depends on the token&#x27;s drift, the change in its shallow-layer value since its cache was computed. On both backbones tested, reusing tokens below a drift threshold was no worse than pruning them, whereas beyond it, reuse yields up to 4.4x the action error of pruning; the same diagnostic calibrates this threshold per backbone. Building on this finding, we propose TRIAGE, which deems a cache valid when its drift is below this threshold and it is not too old. TRIAGE recomputes a fixed budget of tokens, prioritizing important tokens with invalid caches, reuses every other token with a valid cache, and prunes the rest; prune-only and reuse-only methods are the two extremes of this partition. Because the budget fixes the number of recomputed tokens, it directly sets the prefill latency. On LIBERO and SimplerEnv, TRIAGE stays within 3 pp of full recomputation in average success rate while cutting prefill latency on a Jetson AGX Orin by up to 48%, and with only 7% of visual tokens recomputed, it beats the strongest baseline by 24.4 pp on LIBERO-Object.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.41609v1" target="_blank">VLA Policies Do Not Know When Not to Act: Unintended Task Execution and Start Suppression</a></h2>
+  <p class="card-meta">Minsu Jang, Jae-Woo Choi, Youngwoo Yoon et al. &nbsp;·&nbsp; 2026-10-30</p>
+  <p class="one-liner">Evaluates VLA policies' failure to remain stationary under null or infeasible instructions and tests three motion suppression strategies.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">VLA policies exhibit unintended task execution and movement when provided with missing, nonsensical, or infeasible natural language instructions.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Evaluated six VLA checkpoints using a paired protocol of valid and invalid instructions. Tested mitigation via prompt-based instructions, action-chunk similarity gating, and fine-tuning on null-instruction/stationary-state pairs.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Models moved in 100% of episodes with empty instructions; gating suppressed motion in 5/6 models, while fine-tuning failed infeasibility tests.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Identifies a critical safety gap in robotic foundation models where language-conditioned policies fail to map non-actionable inputs to zero-velocity outputs.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.41609v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   VLA Policies Do Not Know When Not to Act: Unintended Task Execution and Start Suppression
+Authors: Minsu Jang, Jae-Woo Choi, Youngwoo Yoon et al.
+ArXiv:   https://arxiv.org/abs/2610.41609v1
+Repo:   not available
+
+## What to build
+Problem:  VLA policies exhibit unintended task execution and movement when provided with missing, nonsensical, or infeasible natural language instructions.
+Approach: Evaluated six VLA checkpoints using a paired protocol of valid and invalid instructions. Tested mitigation via prompt-based instructions, action-chunk similarity gating, and fine-tuning on null-instruction/stationary-state pairs.
+Target:   Models moved in 100% of episodes with empty instructions; gating suppressed motion in 5/6 models, while fine-tuning failed infeasibility tests.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+A robot should act only on an instruction from a person or on an intent that the robot explicitly represents and generates. Unintended actions taken without such an instruction can cause risk or inconvenience to people and the environment. We examine how recent vision-language-action (VLA) policies respond when the instruction is missing or meaningless. We apply a paired protocol with empty, neutral, nonsense, infeasible, and wrong-task instructions to six model checkpoints in LIBERO-Goal simulation. Holding the initial state fixed and varying only the instruction, we ask three questions: whether the robot starts to move, which task it completes, and what the instruction determines. Even when the instruction was empty, the robot started moving in every episode with all six checkpoints, and with five of them it often completed a task that the instruction had not specified. On two GR00T checkpoints, the instruction determined which task was executed but not whether the robot started moving; the robot moved even on infeasible instructions. We then tested three methods for suppressing the start: prepending &quot;if no task is given do not move&quot; to the instruction; a gate that holds the robot when the first action chunk for the given instruction nearly equals that for an empty instruction; and fine-tuning the policy to hold still on non-task inputs. The prefix stopped the robot in none of the six checkpoints, and the gate held it on non-task inputs in five of the six checkpoints. The fine-tuned policy never completed a task on non-task inputs, but it did not reliably keep the robot still, and it failed to suppress the start on infeasible instructions.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.CV</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.41408v1" target="_blank">SACQ: Structure-Aware Codebook Quantization for Ultra-Low-Bit Vision-Language-Action Models</a></h2>
+  <p class="card-meta">Haesung Lee, Insu Han &nbsp;·&nbsp; 2026-10-30</p>
+  <p class="one-liner">Ultra-low-bit vector quantization framework using action-aware metrics and structure-aware codebook fitting for efficient VLA deployment.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Standard low-bit post-training quantization degrades VLA performance by ignoring downstream operation structures and the sensitivity of robotic actions to weight errors.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Uses structure-aware codebook fitting with role-specific quadratic metrics and action-aware mixed-bit allocation. A two-stage refinement reassigns codeword indices with second-order compensation and calibrates codebooks against decoded actions.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Maintains 93.85% success on LIBERO at 1.5 bits per weight, offering 4.83x memory reduction and 1.51x speedup over BF16.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Enables high-performance VLA deployment on resource-constrained robotic platforms by minimizing the performance gap between compressed and full-precision policies.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.41408v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   SACQ: Structure-Aware Codebook Quantization for Ultra-Low-Bit Vision-Language-Action Models
+Authors: Haesung Lee, Insu Han
+ArXiv:   https://arxiv.org/abs/2610.41408v1
+Repo:   not available
+
+## What to build
+Problem:  Standard low-bit post-training quantization degrades VLA performance by ignoring downstream operation structures and the sensitivity of robotic actions to weight errors.
+Approach: Uses structure-aware codebook fitting with role-specific quadratic metrics and action-aware mixed-bit allocation. A two-stage refinement reassigns codeword indices with second-order compensation and calibrates codebooks against decoded actions.
+Target:   Maintains 93.85% success on LIBERO at 1.5 bits per weight, offering 4.83x memory reduction and 1.51x speedup over BF16.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-Language-Action (VLA) models enable capable robot behavior, but their large memory footprint limits deployment on resource-constrained robotic platforms. Weight quantization is a natural remedy, yet post-training quantization (PTQ) recipes inherited from large language models degrade when applied to VLAs at ultra-low precision. Existing low-bit PTQ methods often fail to explicitly account for the structure of downstream operations and allocate precision without considering its effect on the policy actions. We introduce SACQ, an ultra- low-bit weight-only vector-codebook quantization framework for VLAs. SACQ combines (1) structure-aware codebook fitting with role-specific quadratic metrics that reflect input statistics and downstream sensitivity; (2) action-aware mixed-bit allocation based on the increase in final-action error as individual layers are compressed; and (3) two-stage post-quantization refinement that reassigns codeword indices with second-order error compensation and calibrates codebooks and row-group scales against the decoded action. Using GR00T N1.7, SACQ achieves 93.85% average success across four LIBERO suites at 1.5 bits per language/action weight while reducing model memory by 4.83x. With INT8 activation quantization and low-precision attention, it retains 93.55% success while running 1.51x faster than BF16. On SimplER, SACQ further achieves 63.76% and 52.27% success under Visual Matching and Variant Aggregation at 2 bits per language/action weight, compared to 58.90% and 53.45% for BF16, respectively.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.CV</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.40373v1" target="_blank">HiFOR: Hierarchical Foresight with Action-Guided World Grounding for Vision-Language-Action Model</a></h2>
+  <p class="card-meta">Rongxing Ding, Hongyu Qu, Kehong Wu et al. &nbsp;·&nbsp; 2026-10-29</p>
+  <p class="one-liner">Integrates hierarchical multi-horizon future prediction with action-guided latent retrieval to ground VLA policies in environmental dynamics.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Current VLA models decouple short-term dynamics from long-term goals and fail to adaptively ground action generation in relevant futures.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">Uses a Hierarchical Dependency Mask for joint state-milestone-goal prediction and organizes futures in a structured latent space. Employs action-guided factorized retrieval to extract relevant temporal and spatial context during the diffusion denoising process.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Outperforms existing VLA methods across two simulation benchmarks and six diverse real-world robotic manipulation tasks.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Provides a framework for incorporating multi-scale temporal foresight into diffusion-based action policies, improving long-horizon task reliability and grounding.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.40373v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   HiFOR: Hierarchical Foresight with Action-Guided World Grounding for Vision-Language-Action Model
+Authors: Rongxing Ding, Hongyu Qu, Kehong Wu et al.
+ArXiv:   https://arxiv.org/abs/2610.40373v1
+Repo:   not available
+
+## What to build
+Problem:  Current VLA models decouple short-term dynamics from long-term goals and fail to adaptively ground action generation in relevant futures.
+Approach: Uses a Hierarchical Dependency Mask for joint state-milestone-goal prediction and organizes futures in a structured latent space. Employs action-guided factorized retrieval to extract relevant temporal and spatial context during the diffusion denoising process.
+Target:   Outperforms existing VLA methods across two simulation benchmarks and six diverse real-world robotic manipulation tasks.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Vision-Language-Action (VLA) models have demonstrated promising capabilities in robotic manipulation by integrating visual perception, language understanding, and action generation. Recent advances have further incorporated future prediction to enhance the understanding of environmental dynamics and task progression. However, existing methods often model short-term dynamics and long-term task objectives separately, while directly incorporating predicted futures into action policies without sufficiently considering their relevance to current action requirements. To address these limitations, we propose HiFOR, a hierarchical foresight framework with action-guided world retrieval. Specifically, Hierarchical Foresight Prediction jointly predicts short-term state evolution, semantic milestones, and final goal states through a Hierarchical Dependency Mask (HDM), establishing dependencies across temporal horizons. Building upon these predictions, Structure-Aware Latent World Modeling organizes future latent representations along the horizon, view, and spatial dimensions to facilitate fine-grained retrieval. Furthermore, Action-Guided Factorized World Retrieval adaptively retrieves relevant future information from the structured latent world based on evolving action representations during denoising, providing targeted guidance for action generation. Extensive experiments on two simulation benchmarks and six real-world robotic manipulation tasks demonstrate the effectiveness of our approach.">🤖 POC</button></div>
+</div>
+<div class="card">
+  <div class="card-top"><span class="badge badge-cat">cs.RO</span></div>
+  <h2 class="card-title"><a href="https://arxiv.org/abs/2610.40026v1" target="_blank">RoboSeed: Multidimensional Evaluation of Vision-Language-Action and World-Action Models: Capability, Resource Affordability, and Research Evidence</a></h2>
+  <p class="card-meta">Xin Ma, Furong Chen, Xinlong Man et al. &nbsp;·&nbsp; 2026-10-29</p>
+  <p class="one-liner">A multidimensional evaluation framework for VLA models covering capability, affordability, and reproduction evidence via standardized 0-100 profiles.</p>
+  <div class="sections"><span class="sec-label lbl-problem">Problem</span><span class="sec-content">Success rates alone ignore practical constraints like compute budgets, deployment requirements, and the reliability of research claims. Heterogeneous evaluation protocols prevent objective comparisons across diverse robot learning models.</span><span class="sec-label lbl-approach">Approach</span><span class="sec-content">The framework quantifies performance across five dimensions using fixed normalization anchors and weighted input coverage. It integrates local training, weight evaluation, and task-level audits to produce standardized profiles for training-constrained and deployment-constrained settings.</span><span class="sec-label lbl-result">Result</span><span class="sec-content">Assessments reveal that optimal backbone selection is budget-dependent and highly sensitive to specific adaptation recipes. The study identifies critical evidence gaps and interface-driven performance differences between language and visual task execution.</span><span class="sec-label lbl-relevance">Why it matters</span><span class="sec-content">Enables engineers to select models based on hardware-specific affordability rather than just raw performance. It offers a verifiable methodology for auditing model claims and estimating downstream fine-tuning costs.</span></div>
+  <div class="card-links"><a class="btn btn-arxiv" href="https://arxiv.org/abs/2610.40026v1" target="_blank">ArXiv ↗</a><button class="btn btn-poc" onclick="copyPOC(this)" data-prompt="You are an ML engineer specializing in robot learning and VLA models.
+Reproduce the core contribution of the paper below as a minimal proof of concept.
+
+## Paper
+Title:   RoboSeed: Multidimensional Evaluation of Vision-Language-Action and World-Action Models: Capability, Resource Affordability, and Research Evidence
+Authors: Xin Ma, Furong Chen, Xinlong Man et al.
+ArXiv:   https://arxiv.org/abs/2610.40026v1
+Repo:   not available
+
+## What to build
+Problem:  Success rates alone ignore practical constraints like compute budgets, deployment requirements, and the reliability of research claims. Heterogeneous evaluation protocols prevent objective comparisons across diverse robot learning models.
+Approach: The framework quantifies performance across five dimensions using fixed normalization anchors and weighted input coverage. It integrates local training, weight evaluation, and task-level audits to produce standardized profiles for training-constrained and deployment-constrained settings.
+Target:   Assessments reveal that optimal backbone selection is budget-dependent and highly sensitive to specific adaptation recipes. The study identifies critical evidence gaps and interface-driven performance differences between language and visual task execution.
+
+## Instructions
+1. If a repo is available, skim it first to understand the structure and entry points.
+2. Implement the minimal version of the core method described in Approach above.
+3. Use Python + PyTorch. Prefer HuggingFace / LeRobot / gym where relevant.
+4. A simple working demo beats a full reproduction — prioritize correctness over completeness.
+5. End with a runnable snippet that sanity-checks the key claim in Target.
+
+## Full abstract (ground truth)
+Choosing a robot action model requires evidence about task capability, adaptation cost, deployment requirements, and the reliability of reported conclusions. Success rates alone offer limited guidance to researchers with different computing budgets and goals. We propose RoboSeed, a multidimensional evaluation framework for vision-language-action (VLA) and world-action models (WAM), within a continuing program to train, evaluate, and openly release robot models with verifiable evidence for model selection.   The framework defines five dimensions: capability, downstream training affordability, deployment affordability, locally verified research value, and reproduction evidence. It maps empirical measurements and audit criteria to 0-100 profiles using fixed normalization anchors, with balanced, training-constrained, and deployment-constrained preference settings. Interface and protocol checks establish when comparisons are appropriate. Missing measurements remain explicit, incomplete aggregate scores are withheld, and weighted input coverage identifies evidence gaps.   We apply the framework to representative VLA and WAM models, drawing on local training, released-weight evaluation, task-level audits, and an evaluation-system study. The results reveal budget-dependent backbone choices, sensitivity to adaptation recipes, and differences between language and visual task interfaces. Reproducible scoring code and machine-readable evidence support extension to additional models. The study provides dimension-level assessments and priorities for further measurement, while incomplete serving traces and heterogeneous protocols preclude overall numerical rankings.">🤖 POC</button></div>
+</div>
+  </div>
+</main>
+<footer>
+  <div class="container">
+    <a href="../index.html">&#8592; All digests</a>
+    <span>Curated from ArXiv &amp; Papers With Code &nbsp;·&nbsp; Summarized with Gemini Flash</span>
+  </div>
+</footer>
+<script>
+function copyPOC(btn) {
+  navigator.clipboard.writeText(btn.dataset.prompt).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 1800);
+  });
+}
+</script>
+</body>
+</html>
